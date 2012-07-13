@@ -67,14 +67,7 @@ $(document).ready(function() {
         world.CreateBody(bodyDef).CreateFixture(fixDef);
     }
 
-    // Setup debug draw.
-    var debugDraw = new b2DebugDraw();
-    debugDraw.SetSprite(canvas.getContext("2d"));
-    debugDraw.SetDrawScale(SCALE);
-    debugDraw.SetFillAlpha(0.3);
-    debugDraw.SetLineThickness(1.0);
-    debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-    world.SetDebugDraw(debugDraw);
+    setupDebugDraw(world, canvas);
 
     function step() {
         world.Step(
