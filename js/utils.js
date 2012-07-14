@@ -113,7 +113,7 @@ function handleInteractions(player, keys) {
 	}
 	// Up arrow.
 	if (keys[38] && player.canJump){
-		vel.y = -180 / SCALE;
+		vel.y = -250 / SCALE;
         steps = 0;
 	}
 
@@ -154,6 +154,10 @@ function setupDebugDraw(world, canvas) {
 
 
 function addToHistory(objName, objData, icon, world, history) {
+    if (history.length == 1) {
+        $('#no-items').toggle();
+    }
+
     var item = $('<li>').addClass('history-item');
     item.append($('<p>').html(objData.id));
     item.append($('<p>').html(objName));
@@ -164,6 +168,10 @@ function addToHistory(objName, objData, icon, world, history) {
         e.preventDefault();
         world.DestroyBody(history[objData.id].GetBody());
         $(this).parent().remove();
+
+        if (!$('.history-item').length) {
+            $('#no-items').toggle();
+        }
     });
     item.append(deleteButton);
 
