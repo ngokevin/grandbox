@@ -119,11 +119,14 @@ function handleInteractions(player, keys) {
 
     // Add in pseudo-friction.
     if (steps > 0 && vel.x != 0) {
+        var before = vel.x;
         var after_friction = (80 - steps * 1000) / SCALE;
 
         // Don't reverse direction.
-        if (vel.x >= 0 && after_friction >= 0 ||
-            vel.x <= 0 && after_friction <= 0) {
+        if (vel.x >= 0 && after_friction <= 0 ||
+            vel.x <= 0 && after_friction >= 0) {
+            vel.x = 0;
+        } else {
             vel.x = after_friction;
         }
     }
