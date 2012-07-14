@@ -25,34 +25,20 @@ $(document).ready(function() {
     window.onresize = adjustWindow;
 
     // The world.
-    world = new b2World(
-        new b2Vec2(0, 10), // gravity
-        true // allow sleep
-    );
+    world = createWorld();
+    createGround(world, width / 2, height, width, 10);
 
-    // The ground.
-    // Fixture definition: attributions of the object.
-    var fixDef = new b2FixtureDef;
-    fixDef.density = 5.5;
-    fixDef.friction = 0.5;
-    fixDef.restitution = .001; // bounciness
-    // Body definition: where in the world the object is.
-    var bodyDef = new b2BodyDef;
-    bodyDef.type = b2Body.b2_staticBody;
-    // Position center of object, not upper left.
-    bodyDef.position.x = width / 2 / SCALE;
-    bodyDef.position.y = height / SCALE;
-    // Shape: the actual 2D geometrical object.
-    fixDef.shape = new b2PolygonShape;
-    // half height, half width parameters
-    fixDef.shape.SetAsBox((windowWidth / SCALE) / 2, (10 / SCALE) / 2);
-    // Add to world.
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-    canvas.onclick = function(e) {
-        p = getCoords(e);
-        createRectangle(world, 2, 2, p.x, p.y);
-    };
+    // Tools and tools selectors.
+    var tool = rect;
+    var tools = {
+        'rect': rect,
+        'circle': circle,
+    }
+    $('.tool-select').click(function() {
+        $canvas.unbind('click');
+        $canvas.click({'world': world}, tools[this.id]);
+    });
+    $canvas.click({'world': world}, tool);
 
     // Setup debug draw.
     setupDebugDraw(world, canvas);
@@ -69,6 +55,8 @@ $(document).ready(function() {
     }
     requestAnimFrame(step);
 
-    return  {
-    };
+    // Expose global stuff.
+    caniverse = {
+        'world': world,
+    }
 });
