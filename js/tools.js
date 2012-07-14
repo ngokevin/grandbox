@@ -1,5 +1,6 @@
 var history = []; // Yeah, it's global. So what?
 
+
 function rect(e) {
     p = getCoords(e);
     w = e.data.opts['width']

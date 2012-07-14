@@ -42,14 +42,16 @@ $(document).ready(function() {
     // Tools and tools selectors.
     var tool = rect;
     var tools = {
-        'tool-rect': rect,
-        'tool-circle': circle,
+        'tool-rect': { tool: rect, opts: $('.opt-width, .opt-height') },
+        'tool-circle': { tool: circle, opts: $('.opt-radius') },
     }
     $('.tool-select').click(function() {
         $('.tool-select').removeClass('selected');
         $(this).addClass('selected');
         $canvas.unbind('click');
-        $canvas.click({'world': world, 'opts': opts}, tools[this.id]);
+        $('.opt-select').hide(200, 'linear');
+        tools[this.id].opts.show(300, 'linear');
+        $canvas.click({'world': world, 'opts': opts}, tools[this.id].tool);
     });
     $('.tool-rect').addClass('selected');
     $canvas.click({'world': world, 'opts': opts}, tool);
@@ -110,7 +112,7 @@ $(document).ready(function() {
             10,  // velocity iterations
             10  // position iterations
         );
-        handleInteractions(player, keys);
+        handleInteractions(player, keys, canvas);
         world.DrawDebugData();
         world.ClearForces();
         requestAnimFrame(step);

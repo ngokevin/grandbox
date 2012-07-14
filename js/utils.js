@@ -97,8 +97,9 @@ function createPlayerBall(world) {
 }
 
 
+//var offsetX = 0;
 var steps = 0; // since last keypress.
-function handleInteractions(player, keys) {
+function handleInteractions(player, keys, canvas) {
     steps += .001; // don't want var to get too large.
 
 	// Left/right arrows.
@@ -106,10 +107,16 @@ function handleInteractions(player, keys) {
 	if (keys[37]){
 		vel.x = -80 / SCALE;
         steps = 0;
+
+        //canvas.getContext('2d').translate(1, 0)
+        //offsetX--;
 	}
 	else if (keys[39]){
 		vel.x = 80 / SCALE;
         steps = 0;
+
+        //canvas.getContext('2d').translate(-1, 0)
+        //offsetX++;
 	}
 	// Up arrow.
 	if (keys[38] && player.canJump){
@@ -207,5 +214,6 @@ function getCoords(e) {
         p.x -= parseInt($('#canvas-wrap').css('marginLeft'));
         p.y -= parseInt($('#canvas-wrap').css('marginTop'));
     }
+    //p.x += offsetX;
     return p;
 }
