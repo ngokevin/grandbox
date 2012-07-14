@@ -18,6 +18,10 @@ ul, li {
 
     background: $medium_gray;
 
+    h4 {
+        text-align: center;
+    }
+
     .menu {
         width: 80%;
         height: auto;
@@ -69,6 +73,25 @@ ul, li {
             position: relative;
             left: 10px;
             bottom: 9px;
+        }
+    }
+
+    .history-menu {
+        overflow: auto;
+
+        ul {
+            margin-top: -3px;
+        }
+        li {
+            padding: 3px 0 3px 0;
+            border-bottom: 1px solid $dark_gray;
+        }
+        li:last-child {
+            padding: 3px 0 3px 0;
+            border-bottom: 0;
+        }
+        p {
+            margin-left: 10px;
         }
     }
 }

@@ -38,7 +38,7 @@ function createGround(world, x, y, w, h, id) {
     // half height, half width parameters
     fixDef.shape.SetAsBox(w / SCALE / 2, h / SCALE /  2);
     // Add to world.
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
 
@@ -56,7 +56,7 @@ function createRectangle(world, x, y, w, h) {
     bodyDef.type = b2Body.b2_staticBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
 
@@ -68,7 +68,7 @@ function createCircle(world, x, y, r) {
     bodyDef.type = b2Body.b2_dynamicBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
 
@@ -86,7 +86,6 @@ function createPlayerBall(world) {
     bodyDef.linearDamping = .03;
     bodyDef.allowSleep = false;
     bodyDef.userData = 'player';
-
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
@@ -99,24 +98,14 @@ function handleInteractions(world, player, keys) {
         a = collision.m_fixtureA.m_body;
         b = collision.m_fixtureB.m_body;
 
-        dbg(collision);
-
 		if (a.GetUserData() == 'player'||
         b.GetUserData() == 'player') {
-
-			// if (a.GetUserData() == 'ground' ||
-            // b.GetUserData() == 'ground') {
-            //    var groundObj = (a.GetUserData() == 'ground' ?
-            //    a.GetPosition() :
-            //    b.GetPosition());
-            // }
             var playerObj = (a.GetUserData() == 'player' ?
                              a.GetPosition() :
                              b.GetPosition());
             var groundObj = (a.GetUserData() == 'player' ?
                              b.GetPosition() :
                              a.GetPosition());
-
             if (playerObj.y < groundObj.y){
                 player.canJump = true;
             }
@@ -148,6 +137,12 @@ function setupDebugDraw(world, canvas) {
     debugDraw.SetLineThickness(1.0);
     debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
     world.SetDebugDraw(debugDraw);
+}
+
+
+function addToHistory(objName, objData, icon) {
+    item = $('<li>').append($('<p>').html(objName)).addClass('historyItem');
+    $('#history').prepend(item);
 }
 
 
