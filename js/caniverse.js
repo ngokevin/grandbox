@@ -15,6 +15,13 @@ $(document).ready(function() {
     var canvas = document.getElementById('canvas');
     var $canvas = $(canvas);
     var ctx = $canvas.get(0).getContext('2d');
+
+    logo = new Image();
+    logo.src = 'http://i.imgur.com/3e5dA.jpg'
+    logo.onload = function() {
+        ctx.drawImage(logo, 500, 600);
+    };
+
     $canvas.on('touchmove', false);
     $canvas.on('touchstart', false);
     function adjustWindow() {
@@ -112,7 +119,7 @@ $(document).ready(function() {
 
     function step() {
         world.Step(
-            1 / 60, // frame-rate
+            1 / 45, // frame-rate
             10,  // velocity iterations
             10  // position iterations
         );

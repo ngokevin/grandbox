@@ -1,7 +1,7 @@
 @import 'globals';
 
 body {
-    background: $dark_gray;
+    background: $medium_gray;
 }
 p, h4 {
     font-family: Copperplate, sans-serif;
@@ -19,7 +19,7 @@ ul, li {
 }
 
 #canvas {
-    background: url('http://imgur.com/5PGY2.jpg');
+    background: $dark_gray;
 }
 
 #panel {
@@ -39,7 +39,7 @@ ul, li {
     .menu {
         width: 80%;
         height: auto;
-        max-height: 35%;
+        max-height: 25%;
 
         float: right;
         margin-top: 2em;
@@ -101,6 +101,7 @@ ul, li {
 
     .history-menu {
         overflow: auto;
+        min-height: 25%;
 
         #no-items {
             font-style: italic;
