@@ -167,9 +167,12 @@ $(document).ready(function() {
             mouseY < marginTop + height) {
             switch(currentTool) {
                 case 'tool-rect': case 'tool-platform': case 'tool-springboard':
-                    ctx.strokeRect(mouseX - marginLeft - opts.width * SCALE / 2 - 8 - offsetX,
-                                   mouseY - marginTop - opts.height * SCALE / 2,
-                                   opts.width * SCALE, opts.height * SCALE);
+                    ctx.save();
+                    ctx.translate(mouseX - marginLeft - opts.width * SCALE / 2 - 8 - offsetX,
+                                  mouseY - marginTop - opts.height * SCALE / 2);
+                    ctx.rotate(-1 * opts.angle * Math.PI / 180);
+                    ctx.strokeRect(0, 0, opts.width * SCALE, opts.height * SCALE);
+                    ctx.restore();
                     break;
                 case 'tool-circle':
                     ctx.beginPath();

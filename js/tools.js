@@ -50,7 +50,7 @@ function springboard(e) {
     var a = e.data.opts.angle;
     history.push(createSpringboard(e.data.world, p.x, p.y, w, 5, a, bounce));
 
-    addToHistory('Springboard', {'id': history.length - 1, 'w': w}, 'springboard-icon',
+    addToHistory('Sprngbrd', {'id': history.length - 1, 'w': w}, 'springboard-icon',
                  e.data.world, history);
 }
 
