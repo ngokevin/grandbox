@@ -11,6 +11,7 @@ p {
 }
 h4 {
     color: $medium_gray;
+    margin-bottom: 5px;
 }
 ul, li {
     padding: 5px 5px 5px 5px;
@@ -98,12 +99,15 @@ ul, li {
             margin-top: -3px;
         }
         li:first-child {
-            opacity: 1;
+            opacity: .60;
         }
         li {
-            opacity: .5;
+            opacity: .25;
             padding: 3px 0 3px 0;
             border-bottom: 1px solid $light_gray;
+        }
+        li:hover {
+            opacity: 1;
         }
         li:last-child {
             padding: 3px 0 3px 0;

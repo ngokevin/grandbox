@@ -58,7 +58,7 @@ $(document).ready(function() {
     function initSlider($label, $slider, optName) {
         $label.html(opts[optName]);
         return $slider.slider({
-            min: 1, max: 8, value: opts[optName], step: 1,
+            min: .1, max: 10, value: opts[optName], step: .1,
             slide: function(event, ui) { $label.html(ui.value); opts[optName] = ui.value; },
             change: function(event, ui) { $label.html(ui.value); opts[optName] = ui.value; },
         });
