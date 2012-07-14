@@ -49,10 +49,10 @@ $(document).ready(function() {
         $('.tool-select').removeClass('selected');
         $(this).addClass('selected');
         $canvas.unbind('click');
-        $canvas.click({'world': world}, tools[this.id]);
+        $canvas.click({'world': world, 'opts': opts}, tools[this.id]);
     });
-    $('#tool-rect').addClass('selected');
-    $canvas.click({'world': world}, tool);
+    $('.tool-rect').addClass('selected');
+    $canvas.click({'world': world, 'opts': opts}, tool);
 
     // Tool options and sliders.
     function initSlider($label, $slider, optName) {
@@ -63,9 +63,9 @@ $(document).ready(function() {
             change: function(event, ui) { $label.html(ui.value); opts[optName] = ui.value; },
         });
     }
-    initSlider($('#val-width'), $('#opt-width'));
-    initSlider($('#val-height'), $('#opt-height'));
-    initSlider($('#val-radius'), $('#opt-radius'));
+    initSlider($('#val-width'), $('#opt-width'), 'width');
+    initSlider($('#val-height'), $('#opt-height'), 'height');
+    initSlider($('#val-radius'), $('#opt-radius'), 'radius');
 
     // Setup debug draw.
     setupDebugDraw(world, canvas);

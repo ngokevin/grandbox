@@ -1,9 +1,12 @@
 function rect(e) {
     p = getCoords(e);
-    createRectangle(e.data.world, p.x, p.y, 2, 2);
+    w = e.data.opts['width']
+    h = e.data.opts['height']
+    createRectangle(e.data.world, p.x, p.y, w, h);
 }
 
 function circle(e) {
     p = getCoords(e);
-    createCircle(e.data.world, p.x, p.y, 1);
+    r = e.data.opts['radius'];
+    createCircle(e.data.world, p.x, p.y, r);
 }

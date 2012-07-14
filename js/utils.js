@@ -99,21 +99,27 @@ function handleInteractions(world, player, keys) {
         a = collision.m_fixtureA.m_body;
         b = collision.m_fixtureB.m_body;
 
+        dbg(collision);
+
 		if (a.GetUserData() == 'player'||
         b.GetUserData() == 'player') {
 
-			if (a.GetUserData() == 'ground' ||
-            b.GetUserData() == 'ground') {
-				var playerObj = (a.GetUserData() == 'player' ?
-                                 a.GetPosition() :
-                                 b.GetPosition());
-				var groundObj = (a.GetUserData() == 'ground' ?
-                                 a.GetPosition() :
-                                 b.GetPosition());
-				if (playerObj.y < groundObj.y){
-					player.canJump = true;
-				}
-			}
+			// if (a.GetUserData() == 'ground' ||
+            // b.GetUserData() == 'ground') {
+            //    var groundObj = (a.GetUserData() == 'ground' ?
+            //    a.GetPosition() :
+            //    b.GetPosition());
+            // }
+            var playerObj = (a.GetUserData() == 'player' ?
+                             a.GetPosition() :
+                             b.GetPosition());
+            var groundObj = (a.GetUserData() == 'player' ?
+                             b.GetPosition() :
+                             a.GetPosition());
+
+            if (playerObj.y < groundObj.y){
+                player.canJump = true;
+            }
 		}
 	}
 
