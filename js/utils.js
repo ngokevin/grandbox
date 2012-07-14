@@ -53,7 +53,7 @@ function createRectangle(world, x, y, w, h) {
     );
 
     var bodyDef = new b2BodyDef;
-    bodyDef.type = b2Body.b2_dynamicBody;
+    bodyDef.type = b2Body.b2_staticBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
     world.CreateBody(bodyDef).CreateFixture(fixDef);
@@ -96,16 +96,18 @@ function handleInteractions(world, player, keys) {
 	var collision = world.m_contactList;
 	player.canJump = false;
 	if (collision != null){
-		if (collision.GetFixtureA().GetUserData() == 'player'||
-        collision.GetFixtureB().GetUserData() == 'player') {
-			if (collision.GetFixtureA().GetUserData() == 'ground' ||
-            collision.GetFixtureB().GetUserData() == 'ground') {
-				var playerObj = (collision.GetFixtureA().GetUserData() == 'player' ?
-                                 collision.GetFixtureA().GetPosition() :
-                                 collision.GetFixtureB().GetPosition());
-				var groundObj = (collision.GetFixtureA().GetUserData() == 'ground' ?
-                                 collision.GetFixtureA().GetPosition() :
-                                 collision.GetFixtureB().GetPosition());
+        a = collision.m_fixtureA;
+        b = collision.m_fixtureB;
+		if (a.GetUserData() == 'player'||
+        b.GetUserData() == 'player') {
+			if (a.GetUserData() == 'ground' ||
+            b.GetUserData() == 'ground') {
+				var playerObj = (a.GetUserData() == 'player' ?
+                                 a.GetPosition() :
+                                 b.GetPosition());
+				var groundObj = (a.GetUserData() == 'ground' ?
+                                 a.GetPosition() :
+                                 b.GetPosition());
 				if (playerObj.y < groundObj.y){
 					player.canJump = true;
 				}
@@ -113,6 +115,7 @@ function handleInteractions(world, player, keys) {
 		}
 	}
 
+    player.canJump = true
 	var vel = player.object.m_body.m_linearVelocity;
 	if (keys[38] && player.canJump){
 		vel.y = -150 / SCALE;
@@ -149,8 +152,8 @@ function getCoords(e) {
         p = { x: e.layerX, y: e.layerY };
     } else {
         p = { x: e.pageX, y: e.pageY };
+        p.x -= parseInt($('#canvas-wrap').css('marginLeft'));
+        p.y -= parseInt($('#canvas-wrap').css('marginTop'));
     }
-    p.x -= parseInt($('#canvas-wrap').css('marginLeft'));
-    p.y -= parseInt($('#canvas-wrap').css('marginTop'));
     return p;
 }

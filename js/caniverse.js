@@ -52,8 +52,8 @@ $(document).ready(function() {
     $('#tool-rect').addClass('selected');
     $canvas.click({'world': world}, tool);
 
-    document.onkeyup = function(e) { keys[e.keyCode] = false; };
-    document.onkeydown = function(e) { keys[e.keyCode] = true; };
+    $(document).keyup(function(e) { e.preventDefault(); keys[e.keyCode] = false; });
+    $(document).keydown(function(e) { e.preventDefault(); keys[e.keyCode] = true; });
 
     // Setup debug draw.
     setupDebugDraw(world, canvas);
