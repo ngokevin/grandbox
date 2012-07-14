@@ -2,16 +2,21 @@ $(document).ready(function() {
 
     function dbg(str) { console.log(str); }
 
-    var world, keys = [];
-    var width, height, windowWidth, windowHeight, PANEL = 280;
+    var keys = [];
+    $(document).keyup(function(e) { keys[e.keyCode] = false; });
+    $(document).keydown(function(e) { keys[e.keyCode] = true; });
+
+    var opts = {
+        'width': 2, 'height':2, 'radius': 2
+    }
+    var width, height, windowWidth, windowHeight;
+
+    // The canvas.
     var canvas = document.getElementById('canvas');
     var $canvas = $(canvas);
     var ctx = $canvas.get(0).getContext('2d');
-
     $canvas.on('touchmove', false);
     $canvas.on('touchstart', false);
-
-    var marginLeft, marginTop;
     function adjustWindow() {
         windowWidth = $(window).width();
         windowHeight = $(window).height();
@@ -28,14 +33,11 @@ $(document).ready(function() {
     window.onresize = adjustWindow;
 
     // The world.
-    world = createWorld();
+    var world = createWorld();
     createGround(world, width / 2, height, width, 10, 'ground');
 
     // The player.
-    var player = {
-        object: createPlayerBall(world),
-        canJump: false,
-    };
+    var player = { object: createPlayerBall(world), canJump: false };
 
     // Tools and tools selectors.
     var tool = rect;
@@ -52,8 +54,18 @@ $(document).ready(function() {
     $('#tool-rect').addClass('selected');
     $canvas.click({'world': world}, tool);
 
-    $(document).keyup(function(e) { keys[e.keyCode] = false; });
-    $(document).keydown(function(e) { keys[e.keyCode] = true; });
+    // Tool options and sliders.
+    function initSlider($label, $slider, optName) {
+        $label.html(opts[optName]);
+        return $slider.slider({
+            min: 1, max: 8, value: opts[optName], step: 1,
+            slide: function(event, ui) { $label.html(ui.value); opts[optName] = ui.value; },
+            change: function(event, ui) { $label.html(ui.value); opts[optName] = ui.value; },
+        });
+    }
+    initSlider($('#val-width'), $('#opt-width'));
+    initSlider($('#val-height'), $('#opt-height'));
+    initSlider($('#val-radius'), $('#opt-radius'));
 
     // Setup debug draw.
     setupDebugDraw(world, canvas);

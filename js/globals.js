@@ -16,3 +16,4 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
 var SCALE = 30;
+var PANEL = 280;

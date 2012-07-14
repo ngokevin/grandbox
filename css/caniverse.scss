@@ -4,7 +4,7 @@ body {
     background: $dark_gray;
 }
 ul, li {
-    padding: 5px 5px 5px 5px;
+    padding: 0px 5px 0px 5px;
     list-style: none;
 }
 
@@ -18,9 +18,10 @@ ul, li {
 
     background: $medium_gray;
 
-    .tool-menu {
+    .menu {
         width: 80%;
-        height: 35%;
+        height: auto;
+        max-height: 35%;
 
         float: right;
         margin-top: 2em;
@@ -28,18 +29,46 @@ ul, li {
 
         overflow: auto;
         box-shadow: 0px 0px 15px black;
+    }
 
-        ul {
-            li {
-                border-bottom: 1px solid $dark_gray;
-            }
-            li:hover {
-                background: $light_gray;
-                cursor: pointer;
-            }
-            li.selected {
-                background: $light_gray;
-            }
+    .tool-menu {
+        li {
+            padding: 5px 5px 5px 5px;
+            border-bottom: 1px solid $dark_gray;
+        }
+        li:last-child {
+            border-bottom: 0px;
+        }
+        li:hover {
+            background: $light_gray;
+            cursor: pointer;
+        }
+        li.selected {
+            background: $light_gray;
+        }
+    }
+
+    .opt-menu {
+        li {
+            margin-bottom: -15px;
+        }
+        li:last-child {
+            margin-bottom: 0px;
+        }
+        .opt-label {
+            position: relative;
+            margin-left: 5px;
+            margin-bottom: 8px;
+        }
+        *.slider {
+            float: left;
+            width: 80%;
+            margin-left: 15px;
+        }
+        .opt-val {
+            position: relative;
+            left: 10px;
+            bottom: 9px;
         }
     }
 }
