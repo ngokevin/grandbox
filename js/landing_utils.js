@@ -76,7 +76,7 @@ function createPlayerBall(world) {
     bodyDef.userData = 'player';
     bodyDef.type = b2Body.b2_dynamicBody;
     bodyDef.position.x = $('#canvas').width() / 2 / SCALE;
-    bodyDef.position.y = ($('#canvas').height() - 100) / SCALE;
+    bodyDef.position.y = 0 / SCALE;
     bodyDef.linearDamping = .03;
     bodyDef.allowSleep = false;
     return world.CreateBody(bodyDef).CreateFixture(fixDef);

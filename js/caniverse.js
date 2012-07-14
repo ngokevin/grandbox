@@ -133,7 +133,7 @@ $(document).ready(function() {
 
     function step() {
         world.Step(
-            1 / 45, // frame-rate
+            1 / 40, // frame-rate
             10,  // velocity iterations
             10  // position iterations
         );

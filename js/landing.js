@@ -30,7 +30,7 @@ $(document).ready(function() {
     setupDebugDraw(world, canvas);
 
     createRectangle(world, width - 10, height, .2, .2, 'editor');
-    createRectangle(world, 10, height, .2, .2, 'play');
+    createRectangle(world, 10, height, .2, .2, 'explore');
 
     // Collision listener.
     var listener = new Box2D.Dynamics.b2ContactListener;
@@ -41,6 +41,11 @@ $(document).ready(function() {
         if ((a.GetUserData() == 'player' || b.GetUserData() == 'player') &&
             (a.GetUserData() == 'editor' || b.GetUserData() == 'editor')) {
             window.location.href = HOSTNAME + 'editor.html';
+        }
+
+        if ((a.GetUserData() == 'player' || b.GetUserData() == 'player') &&
+            (a.GetUserData() == 'explore' || b.GetUserData() == 'explore')) {
+            window.location.href = 'http://github.com/ngokevin/grandbox';
         }
 
         // Player against other surfaces.
