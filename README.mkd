@@ -1,0 +1,20 @@
+#Grand Box
+##Kevin Ngo
+
+Grand Box is a Box2DWeb-powered platformer with a built-in level editor. In the
+future, people will be able to build and share levels for others to discover
+and play.
+
+The ambition was to create a game where people could create physics-based
+levels to share with the world to play, or just mess around in sandbox mode.
+The idea was inspired by LittleBigPlanet, a social platforming adventure game
+for the PS3, and Garry's Mod, a physics sandbox game for the PC. But what I
+really wanted to get out of building Grand Box, was not only learn the basics
+of game engines (which I knew little about) and to build something cool, but to
+promote the open web. The games mentioned earlier before are on proprietary
+platforms, game developers are either tied to Sony, Microsoft, or usually
+Valve. The concept of openess implies developers aren't forced to choose
+between platforms, and what better cross-platform...platform to develop on than
+the web. Now the web runs on nearly everything, and it's ridiculously easy to
+develop on (children known HTML). This Box2DWeb experiment, written in less
+than 24 hours, serves as a small example of how easy the web is.
