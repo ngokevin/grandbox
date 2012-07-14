@@ -78,7 +78,6 @@ function createPlayerBall(world) {
     fixDef.density = 0.1;
     fixDef.restitution = 0.5;
     fixDef.friction = 1;
-    fixDef.userData = 'player';
 
     var bodyDef = new b2BodyDef;
     bodyDef.type = b2Body.b2_dynamicBody;
@@ -86,6 +85,7 @@ function createPlayerBall(world) {
     bodyDef.position.y = 300 / SCALE;
     bodyDef.linearDamping = .03;
     bodyDef.allowSleep = false;
+    bodyDef.userData = 'player';
 
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
@@ -96,10 +96,12 @@ function handleInteractions(world, player, keys) {
 	var collision = world.m_contactList;
 	player.canJump = false;
 	if (collision != null){
-        a = collision.m_fixtureA;
-        b = collision.m_fixtureB;
+        a = collision.m_fixtureA.m_body;
+        b = collision.m_fixtureB.m_body;
+
 		if (a.GetUserData() == 'player'||
         b.GetUserData() == 'player') {
+
 			if (a.GetUserData() == 'ground' ||
             b.GetUserData() == 'ground') {
 				var playerObj = (a.GetUserData() == 'player' ?
@@ -115,7 +117,6 @@ function handleInteractions(world, player, keys) {
 		}
 	}
 
-    player.canJump = true
 	var vel = player.object.m_body.m_linearVelocity;
 	if (keys[38] && player.canJump){
 		vel.y = -150 / SCALE;
