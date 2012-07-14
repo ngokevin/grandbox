@@ -81,8 +81,8 @@ function createPlayerBall(world) {
 
     var bodyDef = new b2BodyDef;
     bodyDef.type = b2Body.b2_dynamicBody;
-    bodyDef.position.x = 500 / SCALE;
-    bodyDef.position.y = 300 / SCALE;
+    bodyDef.position.x = 50 / SCALE;
+    bodyDef.position.y = ($('#canvas').height() - 100) / SCALE;
     bodyDef.linearDamping = .03;
     bodyDef.allowSleep = false;
     bodyDef.userData = 'player';
@@ -98,18 +98,17 @@ function handleInteractions(world, player, keys) {
         a = collision.m_fixtureA.m_body;
         b = collision.m_fixtureB.m_body;
 
-		if (a.GetUserData() == 'player'||
-        b.GetUserData() == 'player') {
+		if (a.GetUserData() == 'player' || b.GetUserData() == 'player') {
             var playerObj = (a.GetUserData() == 'player' ?
                              a.GetPosition() :
                              b.GetPosition());
-            var groundObj = (a.GetUserData() == 'player' ?
+            var groundObj = (playerObj == a.GetPosition() ?
                              b.GetPosition() :
                              a.GetPosition());
             if (playerObj.y < groundObj.y){
                 player.canJump = true;
             }
-		}
+	   }
 	}
 
 	var vel = player.object.m_body.m_linearVelocity;
@@ -133,7 +132,7 @@ function setupDebugDraw(world, canvas) {
     var debugDraw = new b2DebugDraw();
     debugDraw.SetSprite(canvas.getContext('2d'));
     debugDraw.SetDrawScale(SCALE);
-    debugDraw.SetFillAlpha(0.3);
+    debugDraw.SetFillAlpha(1.0);
     debugDraw.SetLineThickness(1.0);
     debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
     world.SetDebugDraw(debugDraw);

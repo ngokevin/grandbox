@@ -4,11 +4,16 @@ body {
     background: $dark_gray;
 }
 p, h4 {
-    color: $text_color;
     font-family: Copperplate, sans-serif;
 }
+p {
+    color: $dark_gray;
+}
+h4 {
+    color: $medium_gray;
+}
 ul, li {
-    padding: 0px 5px 0px 5px;
+    padding: 5px 5px 5px 5px;
     list-style: none;
 }
 
@@ -41,19 +46,23 @@ ul, li {
 
     .tool-menu {
         li {
-            padding: 5px 5px 5px 5px;
-            border-bottom: 1px solid $dark_gray;
+            padding: 1px 5px 1px 5px;
+            border-bottom: 1px solid $light_gray;
         }
         li:last-child {
             border-bottom: 0px;
         }
         li:hover {
             background: $dark_gray;
-            color: white;
             cursor: pointer;
+        }
+        li:hover p {
+            color: white;
         }
         li.selected {
             background: $dark_gray;
+        }
+        li.selected p {
             color: white;
         }
     }
@@ -88,9 +97,13 @@ ul, li {
         ul {
             margin-top: -3px;
         }
+        li:first-child {
+            opacity: 1;
+        }
         li {
+            opacity: .5;
             padding: 3px 0 3px 0;
-            border-bottom: 1px solid $dark_gray;
+            border-bottom: 1px solid $light_gray;
         }
         li:last-child {
             padding: 3px 0 3px 0;
@@ -103,7 +116,7 @@ ul, li {
 }
 
 #canvas {
-    background: white;
+    background: url('http://i54.tinypic.com/34esuf7.jpg');
 }
 .rect-icon {
     position: relative;

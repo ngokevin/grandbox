@@ -34,7 +34,7 @@ $(document).ready(function() {
 
     // The world.
     var world = createWorld();
-    createGround(world, width / 2, height, width, 10, 'ground');
+    createGround(world, width / 2, height, width, 30, 'ground');
 
     // The player.
     var player = { object: createPlayerBall(world), canJump: false };
