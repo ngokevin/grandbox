@@ -61,14 +61,14 @@ ul, li {
             border-bottom: 0px;
         }
         li:hover {
-            background: $dark_gray;
+            background: $medium_gray;
             cursor: pointer;
         }
         li:hover p {
             color: white;
         }
         li.selected {
-            background: $dark_gray;
+            background: $medium_gray;
         }
         li.selected p {
             color: white;
