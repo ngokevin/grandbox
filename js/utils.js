@@ -39,6 +39,7 @@ function createGround(world, x, y, w, h, id) {
     // Position center of object, not upper left.
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
+
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
@@ -149,17 +150,16 @@ function handleInteractions(player, keys, canvas) {
 	// Up arrow.
 	if (keys[38] && player.canJump){
 		vel.y = -250 / SCALE;
-        steps = 0;
 	}
 
     // Add in pseudo-friction.
     if (steps > 0 && vel.x != 0) {
         var before = vel.x;
         if (vel.x > 0) {
-            var after_friction = (80 - steps * 1000) / SCALE;
+            var after_friction = (80 - steps * 1200) / SCALE;
         }
         else {
-            var after_friction = (-80 + steps * 1000) / SCALE;
+            var after_friction = (-80 + steps * 1200) / SCALE;
         }
         // Don't reverse direction.
         if (vel.x >= 0 && after_friction <= 0 ||
@@ -179,7 +179,7 @@ function setupDebugDraw(world, canvas) {
     var debugDraw = new b2DebugDraw();
     debugDraw.SetSprite(canvas.getContext('2d'));
     debugDraw.SetDrawScale(SCALE);
-    debugDraw.SetFillAlpha(1.0);
+    debugDraw.SetFillAlpha(.75);
     debugDraw.SetLineThickness(1.0);
     debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
     world.SetDebugDraw(debugDraw);

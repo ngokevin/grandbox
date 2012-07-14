@@ -1,6 +1,14 @@
 var history = []; // Yeah, it's global. So what?
 
 
+function ground(world, x, y, w, h) {
+    history.push(createGround(world, x, y, w, h, 'ground'));
+
+    addToHistory('Ground', {'id': history.length - 1, 'w': w, 'h': h}, 'rect-icon',
+                 world, history);
+}
+
+
 function rect(e) {
     var p = getCoords(e);
     var w = e.data.opts.width;
