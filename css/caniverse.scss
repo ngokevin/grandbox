@@ -154,7 +154,7 @@ ul, li {
             position: relative;
             margin-right: 5px;
 
-            color: $dark-gray;
+            color: $dark_gray;
         }
         i.delete:hover {
             font-size: 20px;
@@ -163,7 +163,35 @@ ul, li {
             bottom: 4px;
 
             color: white;
-            background: $dark-gray;
+            background: $dark_gray;
+            border-radius: 3px;
+        }
+        i.joint {
+            float: right;
+            display: block;
+            position: relative;
+            margin-right: 5px;
+
+            color: $dark_gray;
+        }
+        i.joint:hover {
+            font-size: 20px;
+
+            left: 2px;
+            bottom: 4px;
+
+            color: white;
+            background: $dark_gray;
+            border-radius: 3px;
+        }
+        .joint-hover {
+            font-size: 20px;
+
+            left: 2px;
+            bottom: 4px;
+
+            color: white;
+            background: $muted_orange;
             border-radius: 3px;
         }
 

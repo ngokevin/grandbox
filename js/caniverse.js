@@ -164,19 +164,19 @@ $(document).ready(function() {
             mouseY < marginTop + height) {
             switch(currentTool) {
                 case 'tool-rect': case 'tool-platform': case 'tool-springboard':
-                    ctx.strokeRect(mouseX - marginLeft - opts.width * SCALE / 2 - 8,
+                    ctx.strokeRect(mouseX - marginLeft - opts.width * SCALE / 2 - 8 - offsetX,
                                    mouseY - marginTop - opts.height * SCALE / 2,
                                    opts.width * SCALE, opts.height * SCALE);
                     break;
                 case 'tool-circle':
                     ctx.beginPath();
-                    ctx.arc(mouseX - marginLeft - 8,
+                    ctx.arc(mouseX - marginLeft - 8 - offsetX,
                             mouseY - marginTop,
                             opts.radius * SCALE, 0, 2 * Math.PI);
                     ctx.stroke();
                     break;
                 case 'tool-landmine':
-                    ctx.strokeRect(mouseX - marginLeft - .5 * SCALE / 2 - 8,
+                    ctx.strokeRect(mouseX - marginLeft - .5 * SCALE / 2 - 8 - offsetX,
                                    mouseY - marginTop - SCALE / 2 + 15,
                                    .5 * SCALE, 1);
                     break;

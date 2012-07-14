@@ -252,6 +252,41 @@ function addToHistory(objName, objData, icon, world, history) {
     });
     item.append(deleteButton);
 
+    var jointButton = $('<i>').addClass('icon-link icon-large joint');
+    var active = 0;
+    jointButton.click(function(e) {
+        e.preventDefault();
+        if (!active) {
+            jointButton.addClass('joint-hover');
+            active = 1;
+
+            // If two objects chosen, link them together.
+            var activeJoints = $('.joint-hover');
+            if (activeJoints.length > 1) {
+                activeJoints.each(function(index, element) {
+                    var otherId = $(element).parent().children().html();
+
+                    if (otherId != objData.id) {
+                        thisBody = history[objData.id].GetBody();
+                        otherBody = history[otherId].GetBody();
+                        var joint = new b2RevoluteJointDef();
+                        joint.Initialize(thisBody, otherBody, thisBody.GetWorldCenter());
+                        world.CreateJoint(joint);
+                    }
+
+                });
+                activeJoints.removeClass('joint-hover');
+            }
+        }
+        else {
+            // Untoggle.
+            jointButton.removeClass('joint-hover');
+            active = 0;
+        }
+    });
+    item.append(jointButton);
+
+
     // Using the passed in object values, create a sublist.
     var sublist = $('<ul>').addClass('item-details');
     for (key in objData) {
