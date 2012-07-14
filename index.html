@@ -4,71 +4,29 @@
     <head>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
         <title>Grandbox</title>
-        <link rel='stylesheet' href='css/caniverse.css'>
+        <link rel='stylesheet' href='css/landing.css'>
         <link rel='stylesheet' href='css/jquery-ui-1.8.21.custom.css'>
         <link rel='stylesheet' href='css/font-awesome.css'>
         <script src='js/lib/jquery.min.js'></script>
-        <script src='js/lib/jquery-ui-1.8.21.custom.min.js'></script>
         <script src='js/lib/box2d.min.js'></script>
     </head>
 
     <body>
+        <img id='logo' src='http://i.imgur.com/3e5dA.jpg'></img>
+
         <div id='canvas-wrap'><canvas id='canvas'></canvas></div>
 
-        <div id='panel'>
-            <div class='menu tool-menu'>
-                <h4>Object Selector</h4>
-                <ul>
-                    <li class='tool-select tool-rect' id='tool-rect'><p>Box</p><div class='rect-icon right'></div></li>
-                    <li class='tool-select tool-circle' id='tool-circle'><p>Ball</p><div class='circle-icon right'</li>
-                    <li class='tool-select tool-springboard' id='tool-springboard'><p>Springboard</p><div class='springboard-icon right'><div></li>
-                    <li class='tool-select tool-landmine' id='tool-landmine'><p>Land Mine</p><div class='landmine-icon right'><div></li>
-                </ul>
-                </ul>
-            </div>
-            <div class='menu opt-menu'>
-                <h4>Object Properties</h4>
-                <ul>
-                    <li class='opt-select opt-width'>
-                        <p class='opt-label'>Width</p>
-                        <div class='slider' id='opt-width'></div>
-                        <p class='opt-val' id='val-width'>2</p>
-                    </li>
-                    <li class='opt-select opt-height'>
-                        <p class='opt-label'>Height</p>
-                        <div class='slider' id='opt-height'></div>
-                        <p class='opt-val' id='val-height'>2</p>
-                    </li>
-                    <li class='opt-select opt-radius'>
-                        <p class='opt-label'>Radius</p>
-                        <div class='slider' id='opt-radius'></div>
-                        <p class='opt-val' id='val-radius'>2</p>
-                    </li>
-                    <li class='opt-select opt-bounciness'>
-                        <p class='opt-label'>Bounciness</p>
-                        <div class='slider' id='opt-bounciness'></div>
-                        <p class='opt-val' id='val-bounciness'>2.2</p>
-                    </li>
-                    <li class='opt-select opt-blast'>
-                        <p class='opt-label'>Blast</p>
-                        <div class='slider' id='opt-blast'></div>
-                        <p class='opt-val' id='val-blast'>1</p>
-                    </li>
-                </ul>
-            </div>
-            <div class='menu history-menu'>
-                <h4>History</h4>
-                <ul id='history'>
-                    <p id='no-items'>No items to show</p>
-                </ul>
-            </div>
-            <img id='logo' src="http://i.imgur.com/3e5dA.jpg"></img>
-        </div>
+        <div style="clear:both"></div>
+        <div class="ind" style="float:left">play</div>
+        <div class="ind" style="float:right">edit</div>
+        <div style="clear:both"></div>
+
+        <div class="btn left-btn" style="float:left" ><i class="icon-circle-arrow-left"></i></div>
+        <div class="btn right-btn" style="float:right"><i class="icon-circle-arrow-right"></i></div>
 
         <script src='js/globals.js'></script>
-        <script src='js/utils.js'></script>
-        <script src='js/tools.js'></script>
-        <script src='js/caniverse.js'></script>
+        <script src='js/landing_utils.js'></script>
+        <script src='js/landing.js'></script>
     </body>
 
 </html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <title>Grandbox</title>
+        <link rel='stylesheet' href='css/caniverse.css'>
+        <link rel='stylesheet' href='css/jquery-ui-1.8.21.custom.css'>
+        <link rel='stylesheet' href='css/font-awesome.css'>
+        <script src='js/lib/jquery.min.js'></script>
+        <script src='js/lib/jquery-ui-1.8.21.custom.min.js'></script>
+        <script src='js/lib/box2d.min.js'></script>
+    </head>
+
+    <body>
+        <div id='canvas-wrap'><canvas id='canvas'></canvas></div>
+
+        <div id='panel'>
+            <div class='menu tool-menu'>
+                <h4>Object Selector</h4>
+                <ul>
+                    <li class='tool-select tool-rect' id='tool-rect'><p>Box</p><div class='rect-icon right'></div></li>
+                    <li class='tool-select tool-circle' id='tool-circle'><p>Ball</p><div class='circle-icon right'</li>
+                    <li class='tool-select tool-springboard' id='tool-springboard'><p>Springboard</p><div class='springboard-icon right'><div></li>
+                    <li class='tool-select tool-landmine' id='tool-landmine'><p>Land Mine</p><div class='landmine-icon right'><div></li>
+                </ul>
+                </ul>
+            </div>
+            <div class='menu opt-menu'>
+                <h4>Object Properties</h4>
+                <ul>
+                    <li class='opt-select opt-width'>
+                        <p class='opt-label'>Width</p>
+                        <div class='slider' id='opt-width'></div>
+                        <p class='opt-val' id='val-width'>2</p>
+                    </li>
+                    <li class='opt-select opt-height'>
+                        <p class='opt-label'>Height</p>
+                        <div class='slider' id='opt-height'></div>
+                        <p class='opt-val' id='val-height'>2</p>
+                    </li>
+                    <li class='opt-select opt-radius'>
+                        <p class='opt-label'>Radius</p>
+                        <div class='slider' id='opt-radius'></div>
+                        <p class='opt-val' id='val-radius'>2</p>
+                    </li>
+                    <li class='opt-select opt-bounciness'>
+                        <p class='opt-label'>Bounciness</p>
+                        <div class='slider' id='opt-bounciness'></div>
+                        <p class='opt-val' id='val-bounciness'>2.2</p>
+                    </li>
+                    <li class='opt-select opt-blast'>
+                        <p class='opt-label'>Blast</p>
+                        <div class='slider' id='opt-blast'></div>
+                        <p class='opt-val' id='val-blast'>1</p>
+                    </li>
+                </ul>
+            </div>
+            <div class='menu history-menu'>
+                <h4>History</h4>
+                <ul id='history'>
+                    <p id='no-items'>No items to show</p>
+                </ul>
+            </div>
+            <img id='logo' src="http://i.imgur.com/3e5dA.jpg"></img>
+        </div>
+
+        <script src='js/globals.js'></script>
+        <script src='js/utils.js'></script>
+        <script src='js/tools.js'></script>
+        <script src='js/caniverse.js'></script>
+    </body>
+
+</html>

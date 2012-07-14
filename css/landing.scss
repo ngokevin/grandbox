@@ -1,0 +1,45 @@
+@import 'globals';
+
+body {
+    width:500px;
+    max-width: 320px;
+    background: $medium_gray;
+
+    margin:50px 0px; padding:0px;
+    margin:0px auto;
+    text-align:left;
+}
+p, h4 {
+    font-family: Copperplate, sans-serif;
+}
+p {
+    color: $dark_gray;
+}
+
+#canvas {
+    background: $dark_gray;
+    margin-top: -60px;
+    margin-bottom: 10px;
+}
+
+img#logo {
+    width: auto;
+    height: 320px;
+    margin-left: 45px;
+}
+img#logo {
+    width: 225px;
+    height: auto;
+}
+
+.ind {
+    color: $dark_gray;
+}
+
+.btn {
+    margin-top: 24px;
+    font-size: 96px;
+}
+.btn:hover {
+    color: $light_gray;
+}
