@@ -14,6 +14,7 @@ $(document).ready(function() {
     // The canvas.
     var canvas = document.getElementById('canvas');
     var $canvas = $(canvas);
+    $canvasWrap = $('#canvas-wrap');
     var ctx = $canvas.get(0).getContext('2d');
     $canvas.addClass('fade-in')
     $('#panel').addClass('slide-in');
@@ -46,7 +47,7 @@ $(document).ready(function() {
     var player = { object: createPlayerBall(world), canJump: false };
 
     // Tools and tools selectors.
-    var tool = rect;
+    var currentTool = 'tool-rect';
     var tools = {
         'tool-rect': { tool: rect, opts: $('.opt-width, .opt-height') },
         'tool-platform': { tool: platform, opts: $('.opt-width, .opt-height') },
@@ -61,7 +62,9 @@ $(document).ready(function() {
         $('.opt-select').hide(200, 'linear');
         tools[this.id].opts.show(300, 'linear');
         $canvas.click({'world': world, 'opts': opts}, tools[this.id].tool);
+        currentTool = this.id;
     });
+    var tool = rect;
     $('.opt-select').hide();
     $('.tool-rect').addClass('selected');
     tools['tool-rect'].opts.show();
@@ -153,7 +156,32 @@ $(document).ready(function() {
         world.ClearForces();
 
         // If mouse in canvas, draw preview.
-        //if (mouseX
+        var marginLeft = parseInt($canvasWrap.css('marginLeft'));
+        var marginTop = parseInt($canvasWrap.css('marginTop'));
+        if (mouseX > marginLeft &&
+            mouseX < marginLeft + width &&
+            mouseY > marginTop  &&
+            mouseY < marginTop + height) {
+            switch(currentTool) {
+                case 'tool-rect': case 'tool-platform': case 'tool-springboard':
+                    ctx.strokeRect(mouseX - marginLeft - opts.width * SCALE / 2 - 8,
+                                   mouseY - marginTop - opts.height * SCALE / 2,
+                                   opts.width * SCALE, opts.height * SCALE);
+                    break;
+                case 'tool-circle':
+                    ctx.beginPath();
+                    ctx.arc(mouseX - marginLeft - 8,
+                            mouseY - marginTop,
+                            opts.radius * SCALE, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    break;
+                case 'tool-landmine':
+                    ctx.strokeRect(mouseX - marginLeft - .5 * SCALE / 2 - 8,
+                                   mouseY - marginTop - SCALE / 2 + 15,
+                                   .5 * SCALE, 1);
+                    break;
+            }
+        }
 
 
         ctx.drawImage(logo, width / 2 / SCALE, 10);
