@@ -138,28 +138,28 @@ function handleInteractions(player, keys, canvas) {
 	// Left/right arrows.
 	var vel = player.object.GetBody().GetLinearVelocity();
 	if (keys[37]){
-		vel.x = -80 / SCALE;
+		vel.x = -60 / SCALE;
         steps = 0;
         lastX = player.object.GetBody().GetPosition().x;
 	}
 	else if (keys[39]){
-		vel.x = 80 / SCALE;
+		vel.x = 60 / SCALE;
         steps = 0;
         lastX = player.object.GetBody().GetPosition().x;
 	}
 	// Up arrow.
 	if (keys[38] && player.canJump){
-		vel.y = -250 / SCALE;
+		vel.y = -180 / SCALE;
 	}
 
     // Add in pseudo-friction.
     if (steps > 0 && vel.x != 0) {
         var before = vel.x;
         if (vel.x > 0) {
-            var after_friction = (80 - steps * 1200) / SCALE;
+            var after_friction = (60 - steps * 1200) / SCALE;
         }
         else {
-            var after_friction = (-80 + steps * 1200) / SCALE;
+            var after_friction = (-60 + steps * 1200) / SCALE;
         }
         // Don't reverse direction.
         if (vel.x >= 0 && after_friction <= 0 ||
