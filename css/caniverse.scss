@@ -95,26 +95,34 @@ ul, li {
     .history-menu {
         overflow: auto;
 
-        ul {
+        ul#history {
             margin-top: -3px;
         }
-        li:first-child {
-            opacity: .60;
+        li.history-item:first-child {
+            opacity: .90;
         }
-        li {
-            opacity: .25;
-            padding: 3px 0 3px 0;
+        li.history-item {
+            opacity: .35;
+            padding: 15px 0 15px 0;
             border-bottom: 1px solid $light_gray;
         }
-        li:hover {
+        li.history-item:hover {
             opacity: 1;
         }
-        li:last-child {
-            padding: 3px 0 3px 0;
+        li.history-item:last-child {
             border-bottom: 0;
         }
         p {
             margin-left: 10px;
+        }
+
+        .history-item {
+            p {
+                display: inline;
+            }
+            .item-details {
+                opacity: 1;
+            }
         }
     }
 }
@@ -128,7 +136,6 @@ ul, li {
     width: 24px;
     height: 24px;
     background: $muted_purple;
-    bottom: 38px;
     right: 16px;
 }
 .circle-icon {
@@ -137,7 +144,6 @@ ul, li {
     width: 24px;
     height: 24px;
     background: $muted_orange;
-    bottom: 38px;
     right: 16px;
     border-radius: 20px;
 }

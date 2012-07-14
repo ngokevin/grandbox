@@ -140,8 +140,31 @@ function setupDebugDraw(world, canvas) {
 
 
 function addToHistory(objName, objData, icon) {
-    item = $('<li>').append($('<p>').html(objName)).addClass('historyItem');
+    var item = $('<li>').append($('<p>').html(objName)).addClass('history-item');
     item.append($('<div>').addClass(icon));
+
+    // Using the passed in object values, create a sublist.
+    var sublist = $('<ul>').addClass('item-details');
+    for (key in objData) {
+        var subitem = $('<li>').addClass('item-detail');
+        subitem.append($('<p>').html(key).addClass('item-detail-key'));
+        subitem.append($('<p>').html(objData[key]).addClass('item-detail-val'));
+        sublist.append(subitem);
+    }
+    sublist.hide();
+    item.append(sublist);
+
+    // Expand on click, handle weird opacity stuff.
+    item.click(function() {
+        if (sublist.css('display') == 'none') {
+            item.css('opacity', 1);
+        } else {
+            if (item.prev().length)
+                item.css('opacity', .35);
+        }
+        sublist.toggle(200, 'linear');
+    });
+
     $('#history').prepend(item);
 }
 
