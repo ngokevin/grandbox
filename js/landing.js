@@ -19,6 +19,8 @@ $(document).ready(function() {
     var width = $canvas.width();
     var height = $canvas.height();
 
+    $('img.logo').addClass('slide-down');
+
     // The world.
     var world = createWorld();
     createGround(world, width / 2, height + .9, width, 1);

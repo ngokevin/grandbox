@@ -15,6 +15,8 @@ $(document).ready(function() {
     var canvas = document.getElementById('canvas');
     var $canvas = $(canvas);
     var ctx = $canvas.get(0).getContext('2d');
+    $canvas.addClass('fade-in')
+    $('#panel').addClass('slide-in');
 
     logo = new Image();
     logo.src = 'http://i.imgur.com/3e5dA.png'
@@ -47,6 +49,7 @@ $(document).ready(function() {
     var tool = rect;
     var tools = {
         'tool-rect': { tool: rect, opts: $('.opt-width, .opt-height') },
+        'tool-platform': { tool: platform, opts: $('.opt-width, .opt-height') },
         'tool-circle': { tool: circle, opts: $('.opt-radius') },
         'tool-springboard': { tool: springboard, opts: $('.opt-width, .opt-bounciness') },
         'tool-landmine': { tool: landmine, opts: $('.opt-blast') },

@@ -1,5 +1,4 @@
 @import 'globals';
-
 body {
     width:500px;
     max-width: 320px;
@@ -22,14 +21,33 @@ p {
     margin-bottom: 10px;
 }
 
-img#logo {
+img.logo {
     width: auto;
     height: 320px;
     margin-left: 45px;
 }
-img#logo {
+img.logo {
     width: 225px;
     height: auto;
+}
+img.logo {
+    -moz-transform: translateY(-120px);
+    -moz-transition: all .5s ease-in;
+
+    -webkit-transform: translateY(-120px);
+    -webkit-transition: all .5s ease-in;
+
+    -o-transform: translateY(-120px);
+    -o-transition: all .5s ease-in;
+
+    -ms-transform: translateY(-120px);
+    -ms-transition: all .5s ease-in;
+}
+img.logo.slide-down {
+    -moz-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
 }
 
 .ind {

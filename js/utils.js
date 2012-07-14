@@ -58,6 +58,27 @@ function createRectangle(world, x, y, w, h, id) {
 
     var bodyDef = new b2BodyDef;
     bodyDef.userData = id;
+    bodyDef.type = b2Body.b2_dynamicBody;
+    bodyDef.position.x = x / SCALE;
+    bodyDef.position.y = y / SCALE;
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+
+function createPlatform(world, x, y, w, h, id) {
+    if (!id) { id = 'rect'; }
+
+    var halfWidth = w / 2;
+    var halfHeight = h / 2;
+
+    var fixDef = new b2FixtureDef;
+    fixDef.shape = new b2PolygonShape;
+    fixDef.shape.SetAsBox(
+        halfWidth, halfHeight
+    );
+
+    var bodyDef = new b2BodyDef;
+    bodyDef.userData = id;
     bodyDef.type = b2Body.b2_staticBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;

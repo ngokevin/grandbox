@@ -20,6 +20,17 @@ function rect(e) {
 }
 
 
+function platform(e) {
+    var p = getCoords(e);
+    var w = e.data.opts.width;
+    var h = e.data.opts.height;
+    history.push(createPlatform(e.data.world, p.x, p.y, w, h));
+
+    addToHistory('Platform', {'id': history.length - 1, 'w': w, 'h': h}, 'platform-icon',
+                 e.data.world, history);
+}
+
+
 function circle(e) {
     var p = getCoords(e);
     var r = e.data.opts.radius;
