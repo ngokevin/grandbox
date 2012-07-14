@@ -79,6 +79,28 @@ function createCircle(world, x, y, r, id) {
 }
 
 
+function createSpringboard(world, x, y, w, h, bounce, id) {
+    if (!id) { id = 'springboard'; }
+
+    var halfWidth = w / 2;
+    var halfHeight = h / 2;
+
+    var fixDef = new b2FixtureDef;
+    fixDef.shape = new b2PolygonShape;
+    fixDef.restitution = bounce;
+    fixDef.shape.SetAsBox(
+        halfWidth, halfHeight
+    );
+
+    var bodyDef = new b2BodyDef;
+    bodyDef.userData = id;
+    bodyDef.type = b2Body.b2_staticBody;
+    bodyDef.position.x = x / SCALE;
+    bodyDef.position.y = y / SCALE;
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+
 function createPlayerBall(world) {
     var fixDef = new b2FixtureDef;
     fixDef.shape = new b2CircleShape(20 / SCALE);

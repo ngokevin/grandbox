@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(document).keydown(function(e) { keys[e.keyCode] = true; });
 
     var opts = {
-        'width': 2, 'height':2, 'radius': 2
+        'width': 2, 'height':2, 'radius': 2, 'bounciness': 2.2
     }
     var width, height, windowWidth, windowHeight;
 
@@ -44,6 +44,7 @@ $(document).ready(function() {
     var tools = {
         'tool-rect': { tool: rect, opts: $('.opt-width, .opt-height') },
         'tool-circle': { tool: circle, opts: $('.opt-radius') },
+        'tool-springboard': { tool: springboard, opts: $('.opt-width, .opt-bounciness') },
     }
     $('.tool-select').click(function() {
         $('.tool-select').removeClass('selected');
@@ -53,7 +54,9 @@ $(document).ready(function() {
         tools[this.id].opts.show(300, 'linear');
         $canvas.click({'world': world, 'opts': opts}, tools[this.id].tool);
     });
+    $('.opt-select').hide();
     $('.tool-rect').addClass('selected');
+    tools['tool-rect'].opts.show();
     $canvas.click({'world': world, 'opts': opts}, tool);
 
     // Tool options and sliders.
@@ -68,6 +71,7 @@ $(document).ready(function() {
     initSlider($('#val-width'), $('#opt-width'), 'width');
     initSlider($('#val-height'), $('#opt-height'), 'height');
     initSlider($('#val-radius'), $('#opt-radius'), 'radius');
+    initSlider($('#val-bounciness'), $('#opt-bounciness'), 'bounciness');
 
     // Collision listener.
     var listener = new Box2D.Dynamics.b2ContactListener;

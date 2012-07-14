@@ -189,3 +189,20 @@ ul, li {
     float: right;
     right: 16px;
 }
+
+.springboard-icon {
+    width: 36px;
+    height: 12px;
+
+    float: left;
+    position: relative;
+    bottom: 4px;
+
+    border-radius: 20px;
+    background: $muted-red;
+}
+.springboard-icon.right {
+    float: right;
+    top: 4px;
+    right: 11px;
+}
