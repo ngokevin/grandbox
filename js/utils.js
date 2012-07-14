@@ -120,7 +120,13 @@ function handleInteractions(player, keys) {
     // Add in pseudo-friction.
     if (steps > 0 && vel.x != 0) {
         var before = vel.x;
-        var after_friction = (80 - steps * 1000) / SCALE;
+
+        if (vel.x > 0) {
+            var after_friction = (80 - steps * 1000) / SCALE;
+        }
+        else {
+            var after_friction = (-80 + steps * 1000) / SCALE;
+        }
 
         // Don't reverse direction.
         if (vel.x >= 0 && after_friction <= 0 ||
@@ -147,10 +153,9 @@ function setupDebugDraw(world, canvas) {
 }
 
 
-function addToHistory(objName, objData, icon) {
+function addToHistory(objName, objData, icon, world, history) {
     var item = $('<li>').append($('<p>').html(objName)).addClass('history-item');
     item.append($('<div>').addClass(icon));
-    item.append($('<i>').addClass('icon-trash icon-large delete'));
 
     // Using the passed in object values, create a sublist.
     var sublist = $('<ul>').addClass('item-details');
@@ -162,6 +167,14 @@ function addToHistory(objName, objData, icon) {
     }
     sublist.hide();
     item.append(sublist);
+
+    var deleteButton = $('<i>').addClass('icon-trash icon-large delete');
+    deleteButton.click(function(e) {
+        e.preventDefault();
+        world.DestroyBody(history[objData['id']].GetBody());
+    });
+    item.append(deleteButton);
+
 
     // Expand on click, handle weird opacity stuff.
     item.click(function() {
