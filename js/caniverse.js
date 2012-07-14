@@ -111,6 +111,7 @@ $(document).ready(function() {
                                Math.sin(45 * (Math.PI / 180)) * 5),
                     landmineObj.GetWorldCenter()
                 );
+                world.DestroyBody(landmineObj);
             }
         }
     }
@@ -131,6 +132,11 @@ $(document).ready(function() {
     }
     world.SetContactListener(listener);
 
+    var mouseX, mouseY;
+    $(document).mousemove(function(e){
+        mouseX = e.pageX, mouseY = e.pageY;
+    });
+
     // Setup debug draw.
     setupDebugDraw(world, canvas);
 
@@ -142,8 +148,13 @@ $(document).ready(function() {
         );
         handleInteractions(player, keys, canvas);
 
+        ctx.clearRect(-1 * width, 0, 4 * width, height);
         world.DrawDebugData();
         world.ClearForces();
+
+        // If mouse in canvas, draw preview.
+        //if (mouseX
+
 
         ctx.drawImage(logo, width / 2 / SCALE, 10);
         requestAnimFrame(step);
