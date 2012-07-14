@@ -17,10 +17,7 @@ $(document).ready(function() {
     var ctx = $canvas.get(0).getContext('2d');
 
     logo = new Image();
-    logo.src = 'http://i.imgur.com/3e5dA.jpg'
-    logo.onload = function() {
-        ctx.drawImage(logo, 500, 600);
-    };
+    logo.src = 'http://i.imgur.com/3e5dA.png'
 
     $canvas.on('touchmove', false);
     $canvas.on('touchstart', false);
@@ -126,6 +123,7 @@ $(document).ready(function() {
         handleInteractions(player, keys, canvas);
         world.DrawDebugData();
         world.ClearForces();
+        ctx.drawImage(logo, width / 2 / SCALE, 10);
         requestAnimFrame(step);
     }
     requestAnimFrame(step);
