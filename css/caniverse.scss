@@ -37,6 +37,9 @@ ul, li {
                 background: $light_gray;
                 cursor: pointer;
             }
+            li.selected {
+                background: $light_gray;
+            }
         }
     }
 }

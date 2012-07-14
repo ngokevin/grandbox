@@ -31,13 +31,16 @@ $(document).ready(function() {
     // Tools and tools selectors.
     var tool = rect;
     var tools = {
-        'rect': rect,
-        'circle': circle,
+        'tool-rect': rect,
+        'tool-circle': circle,
     }
     $('.tool-select').click(function() {
+        $('.tool-select').removeClass('selected');
+        $(this).addClass('selected');
         $canvas.unbind('click');
         $canvas.click({'world': world}, tools[this.id]);
     });
+    $('#tool-rect').addClass('selected')
     $canvas.click({'world': world}, tool);
 
     // Setup debug draw.
