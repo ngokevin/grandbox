@@ -19,7 +19,7 @@ function createWorld() {
 }
 
 
-function createGround(world, x, y, w, h) {
+function createGround(world, x, y, w, h, id) {
     // The ground.
     // Fixture definition: attributions of the object.
     var fixDef = new b2FixtureDef;
@@ -29,6 +29,7 @@ function createGround(world, x, y, w, h) {
     // Body definition: where in the world the object is.
     var bodyDef = new b2BodyDef;
     bodyDef.type = b2Body.b2_staticBody;
+    bodyDef.userData = id;
     // Position center of object, not upper left.
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
@@ -68,6 +69,63 @@ function createCircle(world, x, y, r) {
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
     world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+
+function createPlayerBall(world) {
+    var fixDef = new b2FixtureDef;
+    fixDef.shape = new b2CircleShape(20 / SCALE);
+    fixDef.density = 0.1;
+    fixDef.restitution = 0.5;
+    fixDef.friction = 1;
+    fixDef.userData = 'player';
+
+    var bodyDef = new b2BodyDef;
+    bodyDef.type = b2Body.b2_dynamicBody;
+    bodyDef.position.x = 500 / SCALE;
+    bodyDef.position.y = 300 / SCALE;
+    bodyDef.linearDamping = .03;
+    bodyDef.allowSleep = false;
+
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+
+function handleInteractions(world, player, keys) {
+	// Up arrow.
+	var collision = world.m_contactList;
+	player.canJump = false;
+	if (collision != null){
+		if (collision.GetFixtureA().GetUserData() == 'player'||
+        collision.GetFixtureB().GetUserData() == 'player') {
+			if (collision.GetFixtureA().GetUserData() == 'ground' ||
+            collision.GetFixtureB().GetUserData() == 'ground') {
+				var playerObj = (collision.GetFixtureA().GetUserData() == 'player' ?
+                                 collision.GetFixtureA().GetPosition() :
+                                 collision.GetFixtureB().GetPosition());
+				var groundObj = (collision.GetFixtureA().GetUserData() == 'ground' ?
+                                 collision.GetFixtureA().GetPosition() :
+                                 collision.GetFixtureB().GetPosition());
+				if (playerObj.y < groundObj.y){
+					player.canJump = true;
+				}
+			}
+		}
+	}
+
+	var vel = player.object.m_body.m_linearVelocity;
+	if (keys[38] && player.canJump){
+		vel.y = -150 / SCALE;
+	}
+
+	// Left/right arrows.
+	if (keys[37]){
+		vel.x = -60 / SCALE;
+	}
+	else if (keys[39]){
+		vel.x = 60 / SCALE;
+	}
+	player.object.m_body.m_linearVelocity = vel;
 }
 
 

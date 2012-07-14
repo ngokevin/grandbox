@@ -1,5 +1,8 @@
 $(document).ready(function() {
-    var world;
+
+    function dbg(str) { console.log(str); }
+
+    var world, keys = [];
     var width, height, windowWidth, windowHeight, PANEL = 280;
     var canvas = document.getElementById('canvas');
     var $canvas = $(canvas);
@@ -26,7 +29,13 @@ $(document).ready(function() {
 
     // The world.
     world = createWorld();
-    createGround(world, width / 2, height, width, 10);
+    createGround(world, width / 2, height, width, 10, 'ground');
+
+    // The player.
+    var player = {
+        object: createPlayerBall(world),
+        canJump: false,
+    };
 
     // Tools and tools selectors.
     var tool = rect;
@@ -40,8 +49,11 @@ $(document).ready(function() {
         $canvas.unbind('click');
         $canvas.click({'world': world}, tools[this.id]);
     });
-    $('#tool-rect').addClass('selected')
+    $('#tool-rect').addClass('selected');
     $canvas.click({'world': world}, tool);
+
+    document.onkeyup = function(e) { keys[e.keyCode] = false; };
+    document.onkeydown = function(e) { keys[e.keyCode] = true; };
 
     // Setup debug draw.
     setupDebugDraw(world, canvas);
@@ -52,6 +64,7 @@ $(document).ready(function() {
             10,  // velocity iterations
             10  // position iterations
         );
+        handleInteractions(world, player, keys);
         world.DrawDebugData();
         world.ClearForces();
         requestAnimFrame(step);
