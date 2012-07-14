@@ -30,7 +30,7 @@ ul, li {
     top: 0;
     right: 0;
 
-    background: $bg;
+    background: $light_gray;
 
     h4 {
         text-align: center;
@@ -217,4 +217,22 @@ img#logo {
     float: right;
     top: 4px;
     right: 11px;
+}
+
+
+.landmine-icon {
+    width: 12px;
+    height: 12px;
+
+    float: left;
+    position: relative;
+    bottom: 4px;
+
+    border-radius: 1px;
+    background: black;
+}
+.landmine-icon.right {
+    float: right;
+    top: 4px;
+    right: 22px;
 }

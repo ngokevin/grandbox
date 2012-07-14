@@ -84,7 +84,7 @@ function createSpringboard(world, x, y, w, h, bounce, id) {
     if (!id) { id = 'springboard'; }
 
     var halfWidth = w / 2;
-    var halfHeight = h / 2;
+    var halfHeight = h / 2 / SCALE;
 
     var fixDef = new b2FixtureDef;
     fixDef.shape = new b2PolygonShape;
@@ -96,6 +96,29 @@ function createSpringboard(world, x, y, w, h, bounce, id) {
     var bodyDef = new b2BodyDef;
     bodyDef.userData = id;
     bodyDef.type = b2Body.b2_staticBody;
+    bodyDef.position.x = x / SCALE;
+    bodyDef.position.y = y / SCALE;
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+
+function createLandMine(world, x, y, w, h, blast, id) {
+    if (!id) { id = 'landmine'; }
+
+    var halfWidth = w / 2;
+    var halfHeight = h / 2 / SCALE;
+
+    var fixDef = new b2FixtureDef;
+    fixDef.shape = new b2PolygonShape;
+    fixDef.restitution = 0;
+    fixDef.shape.SetAsBox(
+        halfWidth, halfHeight
+    );
+    fixDef.blast = blast;
+
+    var bodyDef = new b2BodyDef;
+    bodyDef.userData = id;
+    bodyDef.type = b2Body.b2_dynamicBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
     return world.CreateBody(bodyDef).CreateFixture(fixDef);

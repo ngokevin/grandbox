@@ -34,9 +34,18 @@ function springboard(e) {
     var p = getCoords(e);
     var w = e.data.opts.width;
     var bounce = e.data.opts.bounciness;
-    var h = 5 / SCALE;
-    history.push(createSpringboard(e.data.world, p.x, p.y, w, h, bounce));
+    history.push(createSpringboard(e.data.world, p.x, p.y, w, 5, bounce));
 
     addToHistory('Springboard', {'id': history.length - 1, 'w': w}, 'springboard-icon',
+                 e.data.world, history);
+}
+
+
+function landmine(e) {
+    var p = getCoords(e);
+    var blast = e.data.opts.bounciness;
+    history.push(createLandMine(e.data.world, p.x, p.y, .5, 1, blast));
+
+    addToHistory('Land Mine', {'id': history.length - 1, 'blast': blast}, 'landmine-icon',
                  e.data.world, history);
 }

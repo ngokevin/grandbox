@@ -49,6 +49,7 @@ $(document).ready(function() {
         'tool-rect': { tool: rect, opts: $('.opt-width, .opt-height') },
         'tool-circle': { tool: circle, opts: $('.opt-radius') },
         'tool-springboard': { tool: springboard, opts: $('.opt-width, .opt-bounciness') },
+        'tool-landmine': { tool: landmine, opts: $('.opt-blast') },
     }
     $('.tool-select').click(function() {
         $('.tool-select').removeClass('selected');
@@ -76,12 +77,15 @@ $(document).ready(function() {
     initSlider($('#val-height'), $('#opt-height'), 'height');
     initSlider($('#val-radius'), $('#opt-radius'), 'radius');
     initSlider($('#val-bounciness'), $('#opt-bounciness'), 'bounciness');
+    initSlider($('#val-blast'), $('#opt-blast'), 'blast');
 
     // Collision listener.
     var listener = new Box2D.Dynamics.b2ContactListener;
     listener.BeginContact = function(contact) {
         var a = contact.GetFixtureA().GetBody();
         var b = contact.GetFixtureB().GetBody();
+
+        // Player against other surfaces.
         if (a.GetUserData() == 'player' || b.GetUserData() == 'player') {
             var playerObj = (a.GetUserData() == 'player' ?
                              a.GetPosition() :
@@ -91,6 +95,19 @@ $(document).ready(function() {
                              a.GetPosition());
             if (playerObj.y < groundObj.y){
                 player.canJump = true;
+            }
+        }
+
+        // Uh oh, land mine.
+        if (a.GetUserData() == 'landmine' || b.GetUserData() == 'landmine') {
+            var landmineObj = a.GetUserData() == 'landmineObj' ? a : b;
+            var otherObj = landmineObj == a.GetPosition() ? b : a;
+            if (otherObj.GetPosition().y > landmineObj.GetPosition().y){
+                landmineObj.ApplyImpulse(
+                    new b2Vec2(Math.cos(45 * (Math.PI / 180)) * 5,
+                               Math.sin(45 * (Math.PI / 180)) * 5),
+                    landmineObj.GetWorldCenter()
+                );
             }
         }
     }
@@ -121,8 +138,10 @@ $(document).ready(function() {
             10  // position iterations
         );
         handleInteractions(player, keys, canvas);
+
         world.DrawDebugData();
         world.ClearForces();
+
         ctx.drawImage(logo, width / 2 / SCALE, 10);
         requestAnimFrame(step);
     }
