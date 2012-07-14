@@ -20,29 +20,32 @@ function createWorld() {
 
 
 function createGround(world, x, y, w, h, id) {
-    // The ground.
+    if (!id) { id = 'ground'; }
+
     // Fixture definition: attributions of the object.
     var fixDef = new b2FixtureDef;
+    // Shape: the actual 2D geometrical object.
+    // half height, half width parameters
+    fixDef.shape = new b2PolygonShape;
+    fixDef.shape.SetAsBox(w / SCALE / 2, h / SCALE /  2);
     fixDef.density = 5.5;
     fixDef.friction = 0.5;
     fixDef.restitution = .001; // bounciness
+
     // Body definition: where in the world the object is.
     var bodyDef = new b2BodyDef;
-    bodyDef.type = b2Body.b2_staticBody;
     bodyDef.userData = id;
+    bodyDef.type = b2Body.b2_staticBody;
     // Position center of object, not upper left.
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
-    // Shape: the actual 2D geometrical object.
-    fixDef.shape = new b2PolygonShape;
-    // half height, half width parameters
-    fixDef.shape.SetAsBox(w / SCALE / 2, h / SCALE /  2);
-    // Add to world.
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
 
-function createRectangle(world, x, y, w, h) {
+function createRectangle(world, x, y, w, h, id) {
+    if (!id) { id = 'rect'; }
+
     var halfWidth = w / 2;
     var halfHeight = h / 2;
 
@@ -53,6 +56,7 @@ function createRectangle(world, x, y, w, h) {
     );
 
     var bodyDef = new b2BodyDef;
+    bodyDef.userData = id;
     bodyDef.type = b2Body.b2_staticBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
@@ -60,11 +64,14 @@ function createRectangle(world, x, y, w, h) {
 }
 
 
-function createCircle(world, x, y, r) {
+function createCircle(world, x, y, r, id) {
+    if (!id) { id = 'circle'; }
+
     var fixDef = new b2FixtureDef;
     fixDef.shape = new b2CircleShape(r);
 
     var bodyDef = new b2BodyDef;
+    bodyDef.userData = id;
     bodyDef.type = b2Body.b2_dynamicBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
@@ -80,20 +87,22 @@ function createPlayerBall(world) {
     fixDef.friction = 1;
 
     var bodyDef = new b2BodyDef;
+    bodyDef.userData = 'player';
     bodyDef.type = b2Body.b2_dynamicBody;
     bodyDef.position.x = 50 / SCALE;
     bodyDef.position.y = ($('#canvas').height() - 100) / SCALE;
     bodyDef.linearDamping = .03;
     bodyDef.allowSleep = false;
-    bodyDef.userData = 'player';
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
 
 function handleInteractions(world, player, keys) {
-	// Up arrow.
-	var collision = world.m_contactList;
 	player.canJump = false;
+	var collision = world.m_contactList;
+
+    // Check if player is touching the side or top of object, if so allow
+    // climbing or jumping.
 	if (collision != null){
         a = collision.m_fixtureA.m_body;
         b = collision.m_fixtureB.m_body;
@@ -111,11 +120,11 @@ function handleInteractions(world, player, keys) {
 	   }
 	}
 
+	// Up arrow.
 	var vel = player.object.m_body.m_linearVelocity;
 	if (keys[38] && player.canJump){
 		vel.y = -150 / SCALE;
 	}
-
 	// Left/right arrows.
 	if (keys[37]){
 		vel.x = -60 / SCALE;

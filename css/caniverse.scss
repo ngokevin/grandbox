@@ -47,8 +47,11 @@ ul, li {
 
     .tool-menu {
         li {
-            padding: 1px 5px 1px 5px;
+            padding: 15px 5px 15px 5px;
             border-bottom: 1px solid $light_gray;
+        }
+        li p {
+            display: inline;
         }
         li:last-child {
             border-bottom: 0px;
@@ -131,19 +134,25 @@ ul, li {
     background: url('http://i54.tinypic.com/34esuf7.jpg');
 }
 .rect-icon {
-    position: relative;
-    float: right;
     width: 24px;
     height: 24px;
-    background: $muted_purple;
+
+    position: relative;
+    float: right;
     right: 16px;
+    bottom: 4px;
+
+    background: $muted_purple;
 }
 .circle-icon {
-    position: relative;
-    float: right;
     width: 24px;
     height: 24px;
-    background: $muted_orange;
+
+    position: relative;
+    float: right;
     right: 16px;
+    bottom: 4px;
+
     border-radius: 20px;
+    background: $muted_orange;
 }
