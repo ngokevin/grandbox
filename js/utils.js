@@ -150,6 +150,7 @@ function setupDebugDraw(world, canvas) {
 function addToHistory(objName, objData, icon) {
     var item = $('<li>').append($('<p>').html(objName)).addClass('history-item');
     item.append($('<div>').addClass(icon));
+    item.append($('<i>').addClass('icon-trash icon-large delete'));
 
     // Using the passed in object values, create a sublist.
     var sublist = $('<ul>').addClass('item-details');

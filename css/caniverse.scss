@@ -19,7 +19,7 @@ ul, li {
 }
 
 #canvas {
-    background: url('http://i54.tinypic.com/34esuf7.jpg');
+    background: url('http://imgur.com/5PGY2.jpg');
 }
 
 #panel {
@@ -106,7 +106,7 @@ ul, li {
             margin-top: -3px;
         }
         li.history-item:first-child {
-            opacity: 1;
+            opacity: .9;
         }
         li.history-item {
             opacity: .35;
@@ -121,6 +121,25 @@ ul, li {
         }
         p {
             margin-left: 10px;
+        }
+
+        i.delete {
+            float: right;
+            display: block;
+            position: relative;
+            margin-right: 5px;
+
+            color: $dark-gray;
+        }
+        i.delete:hover {
+            font-size: 20px;
+
+            left: 2px;
+            bottom: 4px;
+
+            color: white;
+            background: $dark-gray;
+            border-radius: 3px;
         }
 
         .history-item {
