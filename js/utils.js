@@ -111,7 +111,7 @@ function createPlayerBall(world) {
     var bodyDef = new b2BodyDef;
     bodyDef.userData = 'player';
     bodyDef.type = b2Body.b2_dynamicBody;
-    bodyDef.position.x = 50 / SCALE;
+    bodyDef.position.x = $('#canvas').width() / 2 / SCALE;
     bodyDef.position.y = ($('#canvas').height() - 100) / SCALE;
     bodyDef.linearDamping = .03;
     bodyDef.allowSleep = false;
@@ -119,26 +119,32 @@ function createPlayerBall(world) {
 }
 
 
-//var offsetX = 0;
+// Too lazy to scope correctly.
+var offsetX = 0;
+var lastX = null;
 var steps = 0; // since last keypress.
 function handleInteractions(player, keys, canvas) {
     steps += .001; // don't want var to get too large.
 
+    if (lastX != null) {
+        var x = player.object.GetBody().GetPosition().x;
+        var translateX = (lastX - x) * SCALE;
+        offsetX += translateX;
+        canvas.getContext('2d').translate(translateX, 0);
+        lastX = x;
+    }
+
 	// Left/right arrows.
-	var vel = player.object.m_body.m_linearVelocity;
+	var vel = player.object.GetBody().GetLinearVelocity();
 	if (keys[37]){
 		vel.x = -80 / SCALE;
         steps = 0;
-
-        //canvas.getContext('2d').translate(1, 0)
-        //offsetX--;
+        lastX = player.object.GetBody().GetPosition().x;
 	}
 	else if (keys[39]){
 		vel.x = 80 / SCALE;
         steps = 0;
-
-        //canvas.getContext('2d').translate(-1, 0)
-        //offsetX++;
+        lastX = player.object.GetBody().GetPosition().x;
 	}
 	// Up arrow.
 	if (keys[38] && player.canJump){
@@ -149,14 +155,12 @@ function handleInteractions(player, keys, canvas) {
     // Add in pseudo-friction.
     if (steps > 0 && vel.x != 0) {
         var before = vel.x;
-
         if (vel.x > 0) {
             var after_friction = (80 - steps * 1000) / SCALE;
         }
         else {
             var after_friction = (-80 + steps * 1000) / SCALE;
         }
-
         // Don't reverse direction.
         if (vel.x >= 0 && after_friction <= 0 ||
             vel.x <= 0 && after_friction >= 0) {
@@ -166,7 +170,7 @@ function handleInteractions(player, keys, canvas) {
         }
     }
 
-	player.object.m_body.m_linearVelocity = vel;
+	var vel = player.object.GetBody().SetLinearVelocity(vel);
 }
 
 
@@ -236,6 +240,8 @@ function getCoords(e) {
         p.x -= parseInt($('#canvas-wrap').css('marginLeft'));
         p.y -= parseInt($('#canvas-wrap').css('marginTop'));
     }
-    //p.x += offsetX;
+    if (offsetX) {
+        p.x -= offsetX;
+    }
     return p;
 }
