@@ -72,7 +72,6 @@ $(document).ready(function() {
         fixDef.shape.SetAsBox(
             halfWidth, halfHeight
         );
-        canvas.getContext('2d').translate(2, 0);
         bodyDef.position.x = p.x / SCALE;
         bodyDef.position.y = p.y / SCALE;
         world.CreateBody(bodyDef).CreateFixture(fixDef);

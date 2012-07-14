@@ -1,3 +1,5 @@
+function dbg(str) { console.log(str); }
+
 // Jack into Box2D's namespace.
 var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2BodyDef = Box2D.Dynamics.b2BodyDef,

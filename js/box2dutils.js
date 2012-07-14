@@ -32,3 +32,37 @@ function setupDebugDraw(world, canvas) {
     debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
     world.SetDebugDraw(debugDraw);
 }
+
+
+function createRectangle(world, w, h, x, y) {
+    var halfWidth = w / 2;
+    var halfHeight = h / 2;
+
+    var fixDef = new b2FixtureDef;
+    fixDef.shape = new b2PolygonShape;
+    fixDef.shape.SetAsBox(
+        halfWidth, halfHeight
+    );
+
+    var bodyDef = new b2BodyDef;
+    bodyDef.type = b2Body.b2_dynamicBody;
+    bodyDef.position.x = x / SCALE;
+    bodyDef.position.y = y / SCALE;
+    world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+
+function getCoords(e) {
+    p = {}
+    if (e.offsetX) {
+        p = { x: e.offsetX, y: e.offsetY };
+    } else if (e.layerX) {
+        p = { x: e.layerX, y: e.layerY };
+    } else {
+        p = { x: e.pageX, y: e.pageY };
+    }
+    p.x -= parseInt($('#canvas-wrap').css('marginLeft'));
+    p.y -= parseInt($('#canvas-wrap').css('marginTop'));
+    return p;
+}
+

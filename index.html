@@ -1,19 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
         <title>Caniverse</title>
-        <link rel="stylesheet" href="css/caniverse.css">
-        <script src="js/lib/jquery.min.js"></script>
-        <script src="js/lib/box2d.min.js"></script>
+        <link rel='stylesheet' href='css/caniverse.css'>
+        <script src='js/lib/jquery.min.js'></script>
+        <script src='js/lib/box2d.min.js'></script>
     </head>
 
     <body>
-        <canvas id="canvas"></canvas>
-        <script src="js/globals.js"></script>
-        <script src="js/box2dutils.js"></script>
-        <script src="js/bigbluedot.js"></script>
+        <div id='canvas-wrap'><canvas id='canvas'></canvas></div>
+
+        <div id='panel'>
+            <div class='obj-menu'>
+                <ul>
+                    <li class='obj-select' id='rectangle'>Rectangle</li>
+                    <li class='obj-select' id='rectangle'>Circle</li>
+                </ul>
+            </div>
+        </div>
+        <script src='js/globals.js'></script>
+        <script src='js/box2dutils.js'></script>
+        <script src='js/caniverse.js'></script>
     </body>
 
 </html>

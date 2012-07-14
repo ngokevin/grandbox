@@ -1,10 +1,6 @@
 $(document).ready(function() {
-    function dbg(str) { console.log(str); }
-
     var world;
-    var SCALE = 30;
-
-    var width, height, windowWidth, windowHeight;
+    var width, height, windowWidth, windowHeight, PANEL = 280;
     var canvas = document.getElementById('canvas');
     var $canvas = $(canvas);
     var ctx = $canvas.get(0).getContext('2d');
@@ -12,15 +8,18 @@ $(document).ready(function() {
     $canvas.on('touchmove', false);
     $canvas.on('touchstart', false);
 
+    var marginLeft, marginTop;
     function adjustWindow() {
         windowWidth = $(window).width();
         windowHeight = $(window).height();
-        $canvas.attr('width', windowWidth * .8);
+        $canvas.attr('width', (windowWidth - PANEL) * .8);
         $canvas.attr('height', windowHeight * .8);
         width = $canvas.width();
         height = $canvas.height();
-        $canvas.css('marginLeft', (windowWidth - width) / 2);
-        $canvas.css('marginTop', (windowHeight - height) / 2);
+
+        marginLeft = (windowWidth - PANEL - width) / 2;
+        marginTop =  (windowHeight - height) / 2;
+        $('#canvas-wrap').css('marginLeft', marginLeft).css('marginTop', marginTop);
     }
     adjustWindow();
     window.onresize = adjustWindow;
@@ -46,29 +45,14 @@ $(document).ready(function() {
     // Shape: the actual 2D geometrical object.
     fixDef.shape = new b2PolygonShape;
     // half height, half width parameters
-    fixDef.shape.SetAsBox((600 / SCALE) / 2, (10 / SCALE) / 2);
+    fixDef.shape.SetAsBox((windowWidth / SCALE) / 2, (10 / SCALE) / 2);
     // Add to world.
     world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-    // Falling objects.
-    // b2_dynamicBody bodyDef allows movement as opposed to static ground.
-    bodyDef.type = b2Body.b2_dynamicBody;
-    for(var i = 0; i < 10; ++i) {
-        if(Math.random() > 0.5) {
-            fixDef.shape = new b2PolygonShape;
-            fixDef.shape.SetAsBox(
-                  Math.random() //half width
-               ,  Math.random() //half height
-            );
-        } else {
-            fixDef.shape = new b2CircleShape(
-                Math.random() // radius
-            );
-        }
-        bodyDef.position.x = Math.random() * 25;
-        bodyDef.position.y = Math.random() * 10;
-        world.CreateBody(bodyDef).CreateFixture(fixDef);
-    }
+    canvas.onclick = function(e) {
+        p = getCoords(e);
+        createRectangle(world, 2, 2, p.x, p.y);
+    };
 
     // Setup debug draw.
     setupDebugDraw(world, canvas);
