@@ -99,7 +99,7 @@ function createPlayerBall(world) {
 
 var steps = 0; // since last keypress.
 function handleInteractions(player, keys) {
-    steps++;
+    steps += .001; // don't want var to get too large.
 
 	// Left/right arrows.
 	var vel = player.object.m_body.m_linearVelocity;
@@ -111,7 +111,6 @@ function handleInteractions(player, keys) {
 		vel.x = 80 / SCALE;
         steps = 0;
 	}
-
 	// Up arrow.
 	if (keys[38] && player.canJump){
 		vel.y = -180 / SCALE;
@@ -120,11 +119,11 @@ function handleInteractions(player, keys) {
 
     // Add in pseudo-friction.
     if (steps > 0 && vel.x != 0) {
-        var after_friction = (80 - steps * .5) / SCALE;
+        var after_friction = (80 - steps * 1000) / SCALE;
 
         // Don't reverse direction.
-        if (vel.x > 0 && after_friction > 0 ||
-            vel.x < 0 && after_friction < 0) {
+        if (vel.x >= 0 && after_friction >= 0 ||
+            vel.x <= 0 && after_friction <= 0) {
             vel.x = after_friction;
         }
     }
