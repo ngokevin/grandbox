@@ -142,6 +142,7 @@ function setupDebugDraw(world, canvas) {
 
 function addToHistory(objName, objData, icon) {
     item = $('<li>').append($('<p>').html(objName)).addClass('historyItem');
+    item.append($('<div>').addClass(icon));
     $('#history').prepend(item);
 }
 
