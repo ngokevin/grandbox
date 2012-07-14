@@ -154,12 +154,23 @@ function setupDebugDraw(world, canvas) {
 
 
 function addToHistory(objName, objData, icon, world, history) {
-    var item = $('<li>').append($('<p>').html(objName)).addClass('history-item');
+    var item = $('<li>').addClass('history-item');
+    item.append($('<p>').html(objData.id));
+    item.append($('<p>').html(objName));
     item.append($('<div>').addClass(icon));
+
+    var deleteButton = $('<i>').addClass('icon-trash icon-large delete');
+    deleteButton.click(function(e) {
+        e.preventDefault();
+        world.DestroyBody(history[objData.id].GetBody());
+        $(this).parent().remove();
+    });
+    item.append(deleteButton);
 
     // Using the passed in object values, create a sublist.
     var sublist = $('<ul>').addClass('item-details');
     for (key in objData) {
+        if (key == 'id') { continue; }
         var subitem = $('<li>').addClass('item-detail');
         subitem.append($('<p>').html(key).addClass('item-detail-key'));
         subitem.append($('<p>').html(objData[key]).addClass('item-detail-val'));
@@ -167,14 +178,6 @@ function addToHistory(objName, objData, icon, world, history) {
     }
     sublist.hide();
     item.append(sublist);
-
-    var deleteButton = $('<i>').addClass('icon-trash icon-large delete');
-    deleteButton.click(function(e) {
-        e.preventDefault();
-        world.DestroyBody(history[objData['id']].GetBody());
-    });
-    item.append(deleteButton);
-
 
     // Expand on click, handle weird opacity stuff.
     item.click(function() {
