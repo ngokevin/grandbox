@@ -44,7 +44,7 @@ function createGround(world, x, y, w, h, id) {
 }
 
 
-function createRectangle(world, x, y, w, h, id) {
+function createRectangle(world, x, y, w, h, a, id) {
     if (!id) { id = 'rect'; }
 
     var halfWidth = w / 2;
@@ -61,11 +61,12 @@ function createRectangle(world, x, y, w, h, id) {
     bodyDef.type = b2Body.b2_dynamicBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
+    bodyDef.angle = a;
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
 
-function createPlatform(world, x, y, w, h, id) {
+function createPlatform(world, x, y, w, h, a, id) {
     if (!id) { id = 'rect'; }
 
     var halfWidth = w / 2;
@@ -82,6 +83,7 @@ function createPlatform(world, x, y, w, h, id) {
     bodyDef.type = b2Body.b2_staticBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
+    bodyDef.angle = a;
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 
@@ -101,7 +103,7 @@ function createCircle(world, x, y, r, id) {
 }
 
 
-function createSpringboard(world, x, y, w, h, bounce, id) {
+function createSpringboard(world, x, y, w, h, a, bounce, id) {
     if (!id) { id = 'springboard'; }
 
     var halfWidth = w / 2;
@@ -119,6 +121,7 @@ function createSpringboard(world, x, y, w, h, bounce, id) {
     bodyDef.type = b2Body.b2_staticBody;
     bodyDef.position.x = x / SCALE;
     bodyDef.position.y = y / SCALE;
+    bodyDef.angle = a;
     return world.CreateBody(bodyDef).CreateFixture(fixDef);
 }
 

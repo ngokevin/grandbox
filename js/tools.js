@@ -13,7 +13,8 @@ function rect(e) {
     var p = getCoords(e);
     var w = e.data.opts.width;
     var h = e.data.opts.height;
-    history.push(createRectangle(e.data.world, p.x, p.y, w, h));
+    var a = e.data.opts.angle;
+    history.push(createRectangle(e.data.world, p.x, p.y, w, h, a));
 
     addToHistory('Box', {'id': history.length - 1, 'w': w, 'h': h}, 'rect-icon',
                  e.data.world, history);
@@ -24,7 +25,8 @@ function platform(e) {
     var p = getCoords(e);
     var w = e.data.opts.width;
     var h = e.data.opts.height;
-    history.push(createPlatform(e.data.world, p.x, p.y, w, h));
+    var a = e.data.opts.angle;
+    history.push(createPlatform(e.data.world, p.x, p.y, w, h, a));
 
     addToHistory('Platform', {'id': history.length - 1, 'w': w, 'h': h}, 'platform-icon',
                  e.data.world, history);
@@ -45,7 +47,8 @@ function springboard(e) {
     var p = getCoords(e);
     var w = e.data.opts.width;
     var bounce = e.data.opts.bounciness;
-    history.push(createSpringboard(e.data.world, p.x, p.y, w, 5, bounce));
+    var a = e.data.opts.angle;
+    history.push(createSpringboard(e.data.world, p.x, p.y, w, 5, a, bounce));
 
     addToHistory('Springboard', {'id': history.length - 1, 'w': w}, 'springboard-icon',
                  e.data.world, history);

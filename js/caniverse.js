@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(document).keydown(function(e) { keys[e.keyCode] = true; });
 
     var opts = {
-        'width': 2, 'height':2, 'radius': 2, 'bounciness': 2.2
+        'width': 2, 'height':2, 'radius': 2, 'bounciness': 2.2, 'angle': 0
     }
     var width, height, windowWidth, windowHeight;
 
@@ -49,10 +49,10 @@ $(document).ready(function() {
     // Tools and tools selectors.
     var currentTool = 'tool-rect';
     var tools = {
-        'tool-rect': { tool: rect, opts: $('.opt-width, .opt-height') },
-        'tool-platform': { tool: platform, opts: $('.opt-width, .opt-height') },
+        'tool-rect': { tool: rect, opts: $('.opt-width, .opt-height, .opt-angle') },
+        'tool-platform': { tool: platform, opts: $('.opt-width, .opt-height, .opt-angle') },
         'tool-circle': { tool: circle, opts: $('.opt-radius') },
-        'tool-springboard': { tool: springboard, opts: $('.opt-width, .opt-bounciness') },
+        'tool-springboard': { tool: springboard, opts: $('.opt-width, .opt-bounciness, .opt-angle') },
         'tool-landmine': { tool: landmine, opts: $('.opt-blast') },
     }
     $('.tool-select').click(function() {
@@ -71,10 +71,14 @@ $(document).ready(function() {
     $canvas.click({'world': world, 'opts': opts}, tool);
 
     // Tool options and sliders.
-    function initSlider($label, $slider, optName) {
+    function initSlider($label, $slider, optName, min, max, step) {
+        if (!min) { var min = .1 };
+        if (!max) { var max = 10 };
+        if (!step) { var step = .1 };
+
         $label.html(opts[optName]);
         return $slider.slider({
-            min: .1, max: 10, value: opts[optName], step: .1,
+            min: min, max: max, value: opts[optName], step: step,
             slide: function(event, ui) { $label.html(ui.value); opts[optName] = ui.value; },
             change: function(event, ui) { $label.html(ui.value); opts[optName] = ui.value; },
         });
@@ -84,6 +88,7 @@ $(document).ready(function() {
     initSlider($('#val-radius'), $('#opt-radius'), 'radius');
     initSlider($('#val-bounciness'), $('#opt-bounciness'), 'bounciness');
     initSlider($('#val-blast'), $('#opt-blast'), 'blast');
+    initSlider($('#val-angle'), $('#opt-angle'), 'angle', 0, 365, 1);
 
     // Collision listener.
     var listener = new Box2D.Dynamics.b2ContactListener;
@@ -128,9 +133,7 @@ $(document).ready(function() {
             } else {
                 playerObj = b;
             }
-            if (!playerObj.GetFixtureList().length) {
-                player.canJump = false;
-            }
+            player.canJump = false;
         }
     }
     world.SetContactListener(listener);
