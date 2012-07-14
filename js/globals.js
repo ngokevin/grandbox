@@ -1,7 +1,7 @@
 function dbg(str) { console.log(str); }
 
 // Disable vertical scrolling from arrows.
-document.onkeydown = function() { return event.keyCode!=38 && event.keyCode!=40 };
+document.onkeydown = function(e) { return e.keyCode != 38 && e.keyCode != 40 };
 
 // Jack into Box2D's namespace.
 var b2Vec2 = Box2D.Common.Math.b2Vec2,

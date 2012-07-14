@@ -37,6 +37,12 @@ $(document).ready(function() {
     listener.BeginContact = function(contact) {
         var a = contact.GetFixtureA().GetBody();
         var b = contact.GetFixtureB().GetBody();
+
+        if ((a.GetUserData() == 'player' || b.GetUserData() == 'player') &&
+            (a.GetUserData() == 'editor' || b.GetUserData() == 'editor')) {
+            window.location.href = HOSTNAME + 'editor.html';
+        }
+
         // Player against other surfaces.
         if (a.GetUserData() == 'player' || b.GetUserData() == 'player') {
             var playerObj = (a.GetUserData() == 'player' ?
@@ -49,8 +55,6 @@ $(document).ready(function() {
                 player.canJump = true;
             }
         }
-
-        // window.location.href = HOSTNAME + 'editor.html';
     }
     listener.EndContact = function(contact) {
         var a = contact.GetFixtureA().GetBody();
