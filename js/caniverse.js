@@ -67,6 +67,40 @@ $(document).ready(function() {
     initSlider($('#val-height'), $('#opt-height'), 'height');
     initSlider($('#val-radius'), $('#opt-radius'), 'radius');
 
+    // Collision listener.
+    var listener = new Box2D.Dynamics.b2ContactListener;
+    listener.BeginContact = function(contact) {
+        var a = contact.GetFixtureA().GetBody();
+        var b = contact.GetFixtureB().GetBody();
+        if (a.GetUserData() == 'player' || b.GetUserData() == 'player') {
+            var playerObj = (a.GetUserData() == 'player' ?
+                             a.GetPosition() :
+                             b.GetPosition());
+            var groundObj = (playerObj == a.GetPosition() ?
+                             b.GetPosition() :
+                             a.GetPosition());
+            if (playerObj.y < groundObj.y){
+                player.canJump = true;
+            }
+        }
+    }
+    listener.EndContact = function(contact) {
+        var a = contact.GetFixtureA().GetBody();
+        var b = contact.GetFixtureB().GetBody();
+        if (a.GetUserData() == 'player' || b.GetUserData() == 'player') {
+            var playerObj;
+            if (a.GetUserData() == 'player') {
+                playerObj = a;
+            } else {
+                playerObj = b;
+            }
+            if (!playerObj.GetFixtureList().length) {
+                player.canJump = false;
+            }
+        }
+    }
+    world.SetContactListener(listener);
+
     // Setup debug draw.
     setupDebugDraw(world, canvas);
 
@@ -76,7 +110,7 @@ $(document).ready(function() {
             10,  // velocity iterations
             10  // position iterations
         );
-        handleInteractions(world, player, keys);
+        handleInteractions(player, keys);
         world.DrawDebugData();
         world.ClearForces();
         requestAnimFrame(step);
@@ -85,6 +119,5 @@ $(document).ready(function() {
 
     // Expose global stuff.
     caniverse = {
-        'world': world,
     }
 });

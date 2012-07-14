@@ -18,6 +18,10 @@ ul, li {
     list-style: none;
 }
 
+#canvas {
+    background: url('http://i54.tinypic.com/34esuf7.jpg');
+}
+
 #panel {
     height: 100%;
     width: 280px;
@@ -102,7 +106,7 @@ ul, li {
             margin-top: -3px;
         }
         li.history-item:first-child {
-            opacity: .90;
+            opacity: 1;
         }
         li.history-item {
             opacity: .35;
@@ -130,29 +134,33 @@ ul, li {
     }
 }
 
-#canvas {
-    background: url('http://i54.tinypic.com/34esuf7.jpg');
-}
 .rect-icon {
     width: 24px;
     height: 24px;
 
+    float: left;
     position: relative;
-    float: right;
-    right: 16px;
     bottom: 4px;
 
     background: $muted_purple;
 }
+.rect-icon.right {
+    float: right;
+    right: 16px;
+}
+
 .circle-icon {
     width: 24px;
     height: 24px;
 
+    float: left;
     position: relative;
-    float: right;
-    right: 16px;
     bottom: 4px;
 
     border-radius: 20px;
     background: $muted_orange;
+}
+.circle-icon.right {
+    float: right;
+    right: 16px;
 }

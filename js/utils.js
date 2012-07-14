@@ -97,40 +97,20 @@ function createPlayerBall(world) {
 }
 
 
-function handleInteractions(world, player, keys) {
-	player.canJump = false;
-	var collision = world.m_contactList;
-
-    // Check if player is touching the side or top of object, if so allow
-    // climbing or jumping.
-	if (collision != null){
-        a = collision.m_fixtureA.m_body;
-        b = collision.m_fixtureB.m_body;
-
-		if (a.GetUserData() == 'player' || b.GetUserData() == 'player') {
-            var playerObj = (a.GetUserData() == 'player' ?
-                             a.GetPosition() :
-                             b.GetPosition());
-            var groundObj = (playerObj == a.GetPosition() ?
-                             b.GetPosition() :
-                             a.GetPosition());
-            if (playerObj.y < groundObj.y){
-                player.canJump = true;
-            }
-	   }
-	}
-
-	// Up arrow.
-	var vel = player.object.m_body.m_linearVelocity;
-	if (keys[38] && player.canJump){
-		vel.y = -150 / SCALE;
-	}
+function handleInteractions(player, keys) {
 	// Left/right arrows.
+	var vel = player.object.m_body.m_linearVelocity;
 	if (keys[37]){
 		vel.x = -60 / SCALE;
 	}
 	else if (keys[39]){
-		vel.x = 60 / SCALE;
+		vel.x = 60/ SCALE;
+	}
+
+	// Up arrow.
+	if (keys[38] && player.canJump){
+	player.object.m_body.m_linearVelocity = vel;
+		vel.y = -180 / SCALE;
 	}
 	player.object.m_body.m_linearVelocity = vel;
 }
@@ -165,12 +145,6 @@ function addToHistory(objName, objData, icon) {
 
     // Expand on click, handle weird opacity stuff.
     item.click(function() {
-        if (sublist.css('display') == 'none') {
-            item.css('opacity', 1);
-        } else {
-            if (item.prev().length)
-                item.css('opacity', .35);
-        }
         sublist.toggle(200, 'linear');
     });
 
