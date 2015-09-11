@@ -18,4 +18,4 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
 
 var SCALE = 30;
 var PANEL = 280;
-var HOSTNAME = 'file:///home/ngoke/Code/caniverse/'
+var HOSTNAME = '/'
