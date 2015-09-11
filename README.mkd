@@ -1,5 +1,6 @@
-#Grand Box
-##Kevin Ngo
+# Grand Box
+
+<img width="1435" alt="screen shot 2015-09-11 at 2 15 05 pm" src="https://cloud.githubusercontent.com/assets/674727/9826492/a2159e76-588f-11e5-9078-0f178edddd26.png">
 
 Grand Box is a Box2DWeb-powered platformer with a built-in level editor. In the
 future, people will be able to build and share levels for others to discover
